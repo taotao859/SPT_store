@@ -10,6 +10,10 @@ export default new Router({
   routes: [
   // 下面都是固定的写法
     {
+      path: '/',
+      redirect: '/login'
+    },
+    {
       path: '/login',
       name: 'Login',
       component: Login
