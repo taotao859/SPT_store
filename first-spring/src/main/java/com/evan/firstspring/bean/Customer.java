@@ -1,31 +1,20 @@
-package com.evan.firstspring.pojo;
+package com.evan.firstspring.bean;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.baomidou.mybatisplus.annotation.*;
 
-import javax.persistence.*;
 
-@Entity
-@Table(name = "customer")
-@JsonIgnoreProperties({"handler","hibernateLazyInitializer"})
+public class Customer {
+    @TableId(type = IdType.AUTO)
+    private String customerId;
 
-public class customer {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "customer_id")
-    int customerId;
-    @Column(name = "customer_password")
-    String customerPassword;
-    @Column(name = "customer_name")
-    String customerName;
-    @Column(name = "customer_contact")
-    String customerContact;
-    @Column(name = "customer_score")
-    int customerScore;
-    @Column(name = "customer_tag")
-    int customerTag;
+    private String customerPassword;
+    private String customerName;
+    private String customerContact;
+    private int customerScore;
+    private boolean customerTag;
 
-    public int getCustomerId() {
+    public String getCustomerId() {
         return customerId;
     }
 
@@ -37,11 +26,11 @@ public class customer {
         return customerScore;
     }
 
-    public void setCustomerId(int customerId) {
+    public void setCustomerId(String customerId) {
         this.customerId = customerId;
     }
 
-    public int getCustomerTag() {
+    public boolean getCustomerTag() {
         return customerTag;
     }
 
@@ -69,7 +58,7 @@ public class customer {
         return customerPassword;
     }
 
-    public void setCustomerTag(int customerTag) {
+    public void setCustomerTag(boolean customerTag) {
         this.customerTag = customerTag;
     }
 }

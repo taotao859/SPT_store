@@ -1,62 +1,36 @@
 package com.evan.firstspring.controller;
 
-import com.evan.firstspring.pojo.staff;
+
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.evan.firstspring.bean.Staff;
+import com.evan.firstspring.mapper.StaffMapper;
 import com.evan.firstspring.result.Result;
-import com.evan.firstspring.service.staffService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.HtmlUtils;
 
-@Controller
-public class Logincontroller {
+import java.util.List;
 
+@RestController
+@RequestMapping("/api")
+@CrossOrigin
+public class LoginController {
     @Autowired
-    staffService staffService;
+    private StaffMapper staffMapper;
 
-    @CrossOrigin
-    @RequestMapping(value = "/api/login")
-    @ResponseBody
-    public Result login(@RequestBody staff requeststaff) {
-        String username = requeststaff.getStaffId();
-        staff staff = staffService.findByidAndPassword(requeststaff.getStaffId(), requeststaff.getStaffPassword());
-        if (null == staff) {
-            return new Result(400);
-        } else {
+    @PostMapping("login")
+    public Result loginIn(@RequestBody Staff requestStaff) {
+        QueryWrapper<Staff> staffQueryWrapper = new QueryWrapper<>();
+        staffQueryWrapper.eq("staff_id", requestStaff.getStaffId());
+        staffQueryWrapper.eq("staff_password", requestStaff.getStaffPassword());
+        List<Staff> staffList = staffMapper.selectList(staffQueryWrapper);
+
+        if (staffList.size() == 1) {
             return new Result(200);
+        } else {
+            return new Result(400);
         }
     }
 }
-//package com.evan.firstspring.controller;
-//
-//import com.evan.firstspring.pojo.user;
-//import com.evan.firstspring.result.Result;
-//import com.evan.firstspring.service.userService;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.stereotype.Controller;
-//import org.springframework.web.bind.annotation.*;
-//import org.springframework.web.util.HtmlUtils;
-//
-//@Controller
-//class LoginController {
-//
-//    @Autowired
-//    userService userService;
-//
-//    @CrossOrigin
-//    @PostMapping(value = "/api/login")
-//    @ResponseBody
-//    public Result login(@RequestBody user requestUser) {
-//        String username = requestUser.getStaffId();
-//        username = HtmlUtils.htmlEscape(username);
-//
-//        user user = userService.get(username, requestUser.getStaffPassword());
-//        if (null == user) {
-//            return new Result(400);
-//        } else {
-//            return new Result(200);
-//        }
-//    }
-//}
+
 
 

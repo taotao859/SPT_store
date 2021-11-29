@@ -1,22 +1,21 @@
-package com.evan.firstspring.pojo;
+package com.evan.firstspring.bean;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.baomidou.mybatisplus.annotation.*;
 
-import javax.persistence.*;
+public class Inventory {
+    @TableId(type = IdType.AUTO)
+    private int inventoryId;
+    private int inventoryProductId;
+    private int inventoryQuantity;
+    private String inventoryRepository;
 
-@Entity
-@Table(name = "inventory")
-@JsonIgnoreProperties({"handler","hibernateLazyInitializer"})
+    public String getInventoryRepository() {
+        return inventoryRepository;
+    }
 
-public class inventory {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "inventory_id")
-    int inventoryId;
-    @Column(name = "inventory_product_id")
-    int inventoryProductId;
-    @Column(name = "inventory_quantity")
-    int inventoryQuantity;
+    public void setInventoryRepository(String inventoryRepository) {
+        this.inventoryRepository = inventoryRepository;
+    }
 
     public int getInventoryId() {
         return inventoryId;

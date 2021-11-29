@@ -1,25 +1,16 @@
-package com.evan.firstspring.pojo;
+package com.evan.firstspring.bean;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.baomidou.mybatisplus.annotation.*;
 
-import javax.persistence.*;
+import java.math.BigDecimal;
 
-@Entity
-@Table(name = "orderitem")
-@JsonIgnoreProperties({"handler","hibernateLazyInitializer"})
-public class orderitem {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "order_item_id")
-    int orderItemId;
-    @Column(name = "order_item_orders_id")
-    int orderItemOrdersId;
-    @Column(name = "order_item_product_id")
-    int orderItemProductId;
-    @Column(name = "order_item_product_quantity")
-    int orderItemProductQuantity;
-    @Column(name = "order_item_product_price")
-    int orderItemProductPrice;
+public class Orderitem {
+    @TableId(type = IdType.AUTO)
+    private int orderItemId;
+    private int orderItemOrdersId;
+    private int orderItemProductId;
+    private int orderItemProductQuantity;
+    private BigDecimal orderItemProductPrice;
 
     public int getOrderItemId() {
         return orderItemId;
@@ -45,11 +36,11 @@ public class orderitem {
         this.orderItemProductId = orderItemProductId;
     }
 
-    public int getOrderItemProductPrice() {
+    public BigDecimal getOrderItemProductPrice() {
         return orderItemProductPrice;
     }
 
-    public void setOrderItemProductPrice(int orderItemProductPrice) {
+    public void setOrderItemProductPrice(BigDecimal orderItemProductPrice) {
         this.orderItemProductPrice = orderItemProductPrice;
     }
 
