@@ -4,7 +4,7 @@
 3. 前端命名规约：
   （1）货品资料维护： api/product
   （2）客户资料维护： api/costomer
-   (3) 员工资料维护： api/employee
+   (3) 员工资料维护： api/
    
    补充：增加：/add     举例：在product中新增，用api/product/add
          删除：/delete
