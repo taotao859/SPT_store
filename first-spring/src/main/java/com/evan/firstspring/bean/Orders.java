@@ -8,17 +8,26 @@ import java.math.BigDecimal;
 public class Orders {
     @TableId(type = IdType.AUTO)
     private int ordersId;
-    private int ordersCustomerId;
+    private String ordersCustomerId;
     private DateTime ordersTime;
     private BigDecimal ordersTotalPrice;
     private BigDecimal ordersProfit;
     private int ordersState;
+    private String ordersStaffId;
 
-    public int getOrdersCustomerId() {
+    public String getOrdersStaffId() {
+        return ordersStaffId;
+    }
+
+    public void setOrdersStaffId(String ordersStaffId) {
+        this.ordersStaffId = ordersStaffId;
+    }
+
+    public String getOrdersCustomerId() {
         return ordersCustomerId;
     }
 
-    public void setOrdersCustomerId(int ordersCustomerId) {
+    public void setOrdersCustomerId(String ordersCustomerId) {
         this.ordersCustomerId = ordersCustomerId;
     }
 

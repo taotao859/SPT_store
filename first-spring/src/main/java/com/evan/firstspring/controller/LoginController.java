@@ -25,7 +25,10 @@ public class LoginController {
         List<Staff> staffList = staffMapper.selectList(staffQueryWrapper);
 
         if (staffList.size() == 1) {
-            return new Result(200);
+            //  staff_role区分不同角色，0——店长，1——仓库管理员，2——售货员
+            int staff_role = staffList.get(0).getStaffRole();
+            //  对饮状态码为200，201,202
+            return new Result(200 + staff_role);
         } else {
             return new Result(400);
         }

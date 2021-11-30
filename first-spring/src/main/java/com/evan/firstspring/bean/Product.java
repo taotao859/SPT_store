@@ -10,6 +10,15 @@ public class Product {
     private int productId;
     private String productName;
     private BigDecimal productCost;
+    private BigDecimal productRetailPrice;
+
+    public BigDecimal getProductRetailPrice() {
+        return productRetailPrice;
+    }
+
+    public void setProductRetailPrice(BigDecimal productRetailPrice) {
+        this.productRetailPrice = productRetailPrice;
+    }
 
     public BigDecimal getProductCost() {
         return productCost;
