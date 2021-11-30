@@ -3,7 +3,7 @@
 2. first-spring的SDK为Amazon Corretto 1.8，这与大家常用的JDK 1.8不同，所以需要重新下载该SDK，然后项目才能运行
 3. 前端命名规约：
   （1）货品资料维护： api/product
-  （2）客户资料维护： api/costomer
+  （2）客户资料维护： api/customer
    (3) 员工资料维护： api/
    
    补充：增加：/add     举例：在product中新增，用api/product/add
