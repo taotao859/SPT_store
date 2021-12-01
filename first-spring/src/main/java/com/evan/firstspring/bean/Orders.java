@@ -14,6 +14,26 @@ public class Orders {
     private BigDecimal ordersProfit;
     private int ordersState;
     private String ordersStaffId;
+    private int ordersRepositoryId;
+    private boolean ordersTag;
+
+    public boolean isOrdersTag() {
+        return ordersTag;
+    }
+
+    public void setOrdersTag(boolean ordersTag) {
+        this.ordersTag = ordersTag;
+    }
+
+    public int getOrdersRepositoryId() {
+        return ordersRepositoryId;
+    }
+
+    public void setOrdersRepositoryId(int ordersRepositoryId) {
+        this.ordersRepositoryId = ordersRepositoryId;
+    }
+
+
 
     public String getOrdersStaffId() {
         return ordersStaffId;

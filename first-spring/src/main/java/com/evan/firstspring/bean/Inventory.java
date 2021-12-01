@@ -7,14 +7,14 @@ public class Inventory {
     private int inventoryId;
     private int inventoryProductId;
     private int inventoryQuantity;
-    private String inventoryRepository;
+    private int inventoryRepositoryId;
 
-    public String getInventoryRepository() {
-        return inventoryRepository;
+    public int getInventoryRepositoryId() {
+        return inventoryRepositoryId;
     }
 
-    public void setInventoryRepository(String inventoryRepository) {
-        this.inventoryRepository = inventoryRepository;
+    public void setInventoryRepositoryId(int inventoryRepositoryId) {
+        this.inventoryRepositoryId = inventoryRepositoryId;
     }
 
     public int getInventoryId() {

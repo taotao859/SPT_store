@@ -6,7 +6,7 @@ import org.joda.time.DateTime;
 public class Record {
     @TableId(type = IdType.AUTO)
     private int recordId;
-    private String recordRepository;
+    private int recordRepositoryId;
     private int recordProductId;
     private int recordQuantity;
     private DateTime recordTime;
@@ -19,12 +19,12 @@ public class Record {
         this.recordId = recordId;
     }
 
-    public String getRecordRepository() {
-        return recordRepository;
+    public int getRecordRepositoryId() {
+        return recordRepositoryId;
     }
 
-    public void setRecordRepository(String recordRepository) {
-        this.recordRepository = recordRepository;
+    public void setRecordRepositoryId(int recordRepositoryId) {
+        this.recordRepositoryId = recordRepositoryId;
     }
 
     public int getRecordProductId() {
