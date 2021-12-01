@@ -1,15 +1,16 @@
 <template>
-    <div>
-      Hello World!
-    </div>
+  <div>
+    Hello World!
+  </div>
 </template>
 
 <script>
 export default {
-  name: 'AppIndex'
+  name: 'Appendix'
 }
 </script>
 
-<style scoped>
+<style
+  scoped>
 
 </style>

@@ -1,20 +1,18 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-// 导入刚才编写的组件
 import AppIndex from '@/components/home/AppIndex'
 import Login from '@/components/Login'
-
+import Retail from '@/components/Retail'
+import SaleHomePage from '@/components/SaleHomePage'
+import WholeSaleOrder from '@/components/WholeSaleOrder'
+import WholeSaleOrderInfo from '@/components/WholeSaleOrderInfo'
+import SaleLog from '@/components/SaleLog'
 Vue.use(Router)
 
 export default new Router({
   routes: [
-  // 下面都是固定的写法
     {
-      path: '/',
-      redirect: '/login'
-    },
-    {
-      path: '/login',
+      path: '/Login',
       name: 'Login',
       component: Login
     },
@@ -22,6 +20,31 @@ export default new Router({
       path: '/index',
       name: 'AppIndex',
       component: AppIndex
+    },
+    {
+      path: '/retail',
+      name: 'Retail',
+      component: Retail
+    },
+    {
+      path: '/saleHomePage',
+      name: 'SaleHomePage',
+      component: SaleHomePage
+    },
+    {
+      path: '/wholeSaleOrder',
+      name: 'WholeSaleOrder',
+      component: WholeSaleOrder
+    },
+    {
+      path: '/wholeSaleOrderInfo',
+      name: WholeSaleOrderInfo,
+      component: WholeSaleOrderInfo
+    },
+    {
+      path: '/saleLog',
+      name: SaleLog,
+      component: SaleLog
     }
   ]
 })
