@@ -2,11 +2,12 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import AppIndex from '@/components/home/AppIndex'
 import Login from '@/components/Login'
-import Retail from '@/components/Retail'
-import SaleHomePage from '@/components/SaleHomePage'
-import WholeSaleOrder from '@/components/WholeSaleOrder'
-import WholeSaleOrderInfo from '@/components/WholeSaleOrderInfo'
-import SaleLog from '@/components/SaleLog'
+import Retail from '@/components/salesman/Retail'
+import SaleHomePage from '@/components/salesman/SaleHomePage'
+import WholeSaleOrder from '@/components/salesman/WholeSaleOrder'
+import WholeSaleOrderInfo from '@/components/salesman/WholeSaleOrderInfo'
+import SaleLog from '@/components/salesman/SaleLog'
+import RepoHomePage from '@/components/repositoryAdmin/RepoHomePage'
 Vue.use(Router)
 
 export default new Router({
@@ -45,6 +46,11 @@ export default new Router({
       path: '/saleLog',
       name: SaleLog,
       component: SaleLog
+    },
+    {
+      path: '/repoHomePage',
+      name: RepoHomePage,
+      component: RepoHomePage
     }
   ]
 })
