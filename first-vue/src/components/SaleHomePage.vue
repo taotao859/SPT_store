@@ -39,31 +39,9 @@
 export default {
   name: 'SaleHomePage',
   data () {
-    const item = {
-      index: '1',
-      productId: '12345678',
-      productName: '饼干',
-      quantity: '2',
-      price: '4.00',
-      totalPrice: '8.00'
-    }
     return {
       pageName: '主页',
-      salesName: 'Joe',
-      tableData: Array(20).fill(item),
-      input: '',
-      itemQuantity: '',
-      salesNumber: '0000000000001',
-      wholePrice: '100.00'
-    }
-  },
-  methods: {
-    check () {
-      this.$alert('收款成功', '收款确认', {
-        confirmButtonText: '确认',
-        callback: action => {
-        }
-      })
+      salesName: 'Joe'
     }
   }
 }
