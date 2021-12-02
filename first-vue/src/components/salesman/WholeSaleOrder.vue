@@ -17,11 +17,11 @@
     </el-aside>
     <el-container>
       <el-header>
-        <el-row :gutter="20">
-          <el-col :span="2">
+        <el-row>
+          <el-col :span="4" style="text-align: left">
             <div v-text="pageName"></div>
           </el-col>
-          <el-col :span="4" :offset="18">
+          <el-col :span="20" style="text-align: right">
             Hello, <span id="salesman" v-text="salesName"></span>
             <el-button icon="el-icon-s-home" circle style="border: none;background: none" @click="$router.push({path: '/saleHomePage'})"></el-button>
             <el-button id="log-out-button" icon="el-icon-switch-button" @click="$router.push({path: '/login'})"></el-button>
@@ -68,14 +68,17 @@
           <el-col :span="2">
             <el-button @click="addItem">添加</el-button>
           </el-col>
-          <el-col :span="2" :offset="2">
+          <el-col :span="2">
+            <el-button @click="deleteItem">删除</el-button>
+          </el-col>
+          <el-col :span="2" :offset="4">
+            <el-button @click="cancel">取消</el-button>
+          </el-col>
+          <el-col :span="2">
             <el-button @click="save">保存</el-button>
           </el-col>
-          <el-col :span="3">
-            <el-button style="width: 150px" @click="verify">提交审核</el-button>
-          </el-col>
-          <el-col :span="4">
-            <el-button id="check-button" style="width: 240px" @click="check">收银</el-button>
+          <el-col :span="2">
+            <el-button @click="verify">提交</el-button>
           </el-col>
         </el-row>
       </el-main>
@@ -109,16 +112,13 @@ export default {
   methods: {
     addItem () {
     },
+    deleteItem () {
+    },
     save () {
     },
     verify () {
     },
-    check () {
-      this.$alert('收款成功', '收款确认', {
-        confirmButtonText: '确认',
-        callback: action => {
-        }
-      })
+    cancel () {
     }
   }
 }

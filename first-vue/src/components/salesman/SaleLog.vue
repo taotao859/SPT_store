@@ -17,11 +17,11 @@
     </el-aside>
     <el-container>
       <el-header>
-        <el-row :gutter="20">
-          <el-col :span="2">
+        <el-row>
+          <el-col :span="4" style="text-align: left">
             <div v-text="pageName"></div>
           </el-col>
-          <el-col :span="4" :offset="18">
+          <el-col :span="20" style="text-align: right">
             Hello, <span id="salesman" v-text="salesName"></span>
             <el-button icon="el-icon-s-home" circle style="border: none;background: none" @click="$router.push({path: '/saleHomePage'})"></el-button>
             <el-button id="log-out-button" icon="el-icon-switch-button" @click="$router.push({path: '/login'})"></el-button>
@@ -30,20 +30,14 @@
       </el-header>
       <el-main>
         <el-row :gutter="5">
-          <el-col :span="4">
+          <el-col :span="5">
             <el-input v-model="wholeSaleOrderId" placeholder="请输入订单编号"></el-input>
-          </el-col>
-          <el-col :span="8">
-            <div class="block">
-              <el-date-picker v-model="date" type="daterange" start-placeholder="开始日期" end-placeholder="结束日期">
-              </el-date-picker>
-            </div>
           </el-col>
           <el-col :span="3">
             <el-input v-model="operatorName" placeholder="执行者"></el-input>
           </el-col>
-          <el-col :span="2" :offset="7">
-            <el-button icon="el-icon-search" @click="search"></el-button>
+          <el-col :span="3" :offset="13">
+            <el-button @click="search" style="width: 100px">查询</el-button>
           </el-col>
         </el-row>
         <br><br>
@@ -55,11 +49,23 @@
               <el-table-column prop="retailOrderDate" label="日期" width="350px"></el-table-column>
               <el-table-column prop="retailOrderOperator" label="执行者" width="250px"></el-table-column>
               <el-table-column label="操作" width="220px">
-                <el-link>查看</el-link>
+                <el-col style="text-align: center">
+                  <el-link @click="dialogVisible = true">查看</el-link>
+                </el-col>
               </el-table-column>
             </el-table>
           </el-col>
         </el-row>
+        <el-dialog title="订单明细" :visible.sync="dialogVisible" width="40%" :before-close="handleClose">
+          <el-table :data="orderInfo" style="width: 100%" height="400px" :header-cell-style="{background:'#eef1f6',color:'#606266'}">
+            <el-table-column prop="index" label="序" width="40px"></el-table-column>
+            <el-table-column prop="ItemId" label="商品编号" width="150px"></el-table-column>
+            <el-table-column prop="ItemName" label="商品名称" width="150px"></el-table-column>
+            <el-table-column prop="ItemQuantity" label="数量" width="60px"></el-table-column>
+            <el-table-column prop="ItemPrice" label="单价" width="75px"></el-table-column>
+            <el-table-column prop="ItemTotalPrice" label="合计" width="99px"></el-table-column>
+          </el-table>
+        </el-dialog>
       </el-main>
     </el-container>
   </el-container>
@@ -75,11 +81,21 @@ export default {
       retailOrderDate: '2021-11-29',
       retailOrderOperator: 'Joe'
     }
+    const orderInfo = {
+      index: '1',
+      ItemId: '123455',
+      ItemName: '面包',
+      ItemQuantity: '2',
+      ItemPrice: '3.00',
+      ItemTotalPrice: '6.00'
+    }
     return {
       pageName: '销售记录',
       salesName: 'Joe',
       date: '',
-      tableData: Array(20).fill(item)
+      tableData: Array(20).fill(item),
+      orderInfo: Array(10).fill(orderInfo),
+      dialogVisible: false
     }
   },
   methods: {
@@ -131,5 +147,8 @@ export default {
   }
   .el-table__body-wrapper::-webkit-scrollbar-track {
     background-color: #e3e3e3;
+  }
+  .el-table .cell {
+    text-align: center;
   }
 </style>

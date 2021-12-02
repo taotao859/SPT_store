@@ -17,11 +17,11 @@
     </el-aside>
     <el-container>
       <el-header>
-        <el-row :gutter="20">
-          <el-col :span="2">
+        <el-row>
+          <el-col :span="4" style="text-align: left">
             <div v-text="pageName"></div>
           </el-col>
-          <el-col :span="4" :offset="18">
+          <el-col :span="20" style="text-align: right">
             Hello, <span id="salesman" v-text="salesName"></span>
             <el-button icon="el-icon-s-home" circle style="border: none;background: none" @click="$router.push({path: '/saleHomePage'})"></el-button>
             <el-button id="log-out-button" icon="el-icon-switch-button" @click="$router.push({path: '/login'})"></el-button>
@@ -30,20 +30,14 @@
       </el-header>
       <el-main>
         <el-row :gutter="5">
-          <el-col :span="4">
+          <el-col :span="5">
             <el-input v-model="wholeSaleOrderId" placeholder="请输入订单编号"></el-input>
-          </el-col>
-          <el-col :span="8">
-            <div class="block">
-              <el-date-picker v-model="date" type="daterange" start-placeholder="开始日期" end-placeholder="结束日期">
-              </el-date-picker>
-            </div>
           </el-col>
           <el-col :span="3">
             <el-input v-model="operatorName" placeholder="执行者"></el-input>
           </el-col>
-          <el-col :span="2" :offset="7">
-            <el-button icon="el-icon-search" @click="search"></el-button>
+          <el-col :span="3" :offset="13">
+            <el-button @click="search" style="width: 100px">查询</el-button>
           </el-col>
         </el-row>
         <br><br>
@@ -111,7 +105,6 @@ export default {
   .el-main {
     background-color: beige;
     color: black;
-    text-align: center;
   }
   #log-out-button {
     background: none;

@@ -17,11 +17,11 @@
     </el-aside>
     <el-container>
       <el-header>
-        <el-row :gutter="20">
-          <el-col :span="2">
+        <el-row>
+          <el-col :span="4" style="text-align: left">
             <div v-text="pageName"></div>
           </el-col>
-          <el-col :span="4" :offset="18">
+          <el-col :span="20" style="text-align: right">
             Hello, <span id="salesman" v-text="salesName"></span>
             <el-button icon="el-icon-s-home" circle style="border: none;background: none" @click="$router.push({path: '/saleHomePage'})"></el-button>
             <el-button id="log-out-button" icon="el-icon-switch-button" @click="$router.push({path: '/login'})"></el-button>

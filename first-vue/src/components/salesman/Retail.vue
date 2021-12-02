@@ -2,11 +2,11 @@
   <el-container>
     <el-container>
       <el-header>
-        <el-row :gutter="20">
-          <el-col :span="2">
+        <el-row>
+          <el-col :span="4" style="text-align: left">
             <div v-text="pageName"></div>
           </el-col>
-          <el-col :span="4" :offset="18">
+          <el-col :span="20" style="text-align: right">
             Hello, <span id="salesman" v-text="salesName"></span>
             <el-button icon="el-icon-s-home" circle style="border: none;background: none" @click="$router.push({path: '/saleHomePage'})"></el-button>
             <el-button id="log-out-button" icon="el-icon-switch-button" @click="$router.push({path: '/login'})"></el-button>
@@ -41,16 +41,19 @@
         </el-row>
         <br><br>
         <el-row :gutter="20">
-          <el-col :span="7">
-            <el-input v-model="input" style="width: 300px" placeholder="请输入商品编号"></el-input>
+          <el-col :span="6" :offset="1" style="text-align: left">
+            <el-input v-model="input" style="width: 350px" placeholder="请输入商品编号"></el-input>
           </el-col>
           <el-col :span="2">
             <el-input v-model="itemQuantity" style="width:100px" placeholder="数量"></el-input>
           </el-col>
           <el-col :span="2">
-            <el-button @click="addItem">添加</el-button>
+            <el-button @click="addItem" style="width: 100px">添加</el-button>
           </el-col>
-          <el-col :span="10" :offset="3">
+          <el-col :span="2">
+            <el-button @click="deleteItem" style="width: 100px">删除</el-button>
+          </el-col>
+          <el-col :span="10" :offset="1">
             <el-button id="check-button" @click="check">收银</el-button>
           </el-col>
         </el-row>
@@ -74,7 +77,7 @@ export default {
     return {
       pageName: '零售',
       salesName: 'Joe',
-      tableData: Array(20).fill(item),
+      tableData: Array(1).fill(item),
       input: '',
       itemQuantity: '',
       salesNumber: '0000000000001',
@@ -83,6 +86,8 @@ export default {
   },
   methods: {
     addItem () {
+    },
+    deleteItem () {
     },
     check () {
       this.$alert('收款成功', '收款确认', {
@@ -146,7 +151,7 @@ export default {
     background-color: #e3e3e3;
   }
   #check-button {
-    width: 460px;
+    width: 465px;
     border-radius: 5px;
   }
 </style>
