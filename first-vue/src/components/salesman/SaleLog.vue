@@ -31,7 +31,7 @@
       <el-main>
         <el-row :gutter="5">
           <el-col :span="5">
-            <el-input v-model="wholeSaleOrderId" placeholder="请输入订单编号"></el-input>
+            <el-input v-model="orderId" placeholder="请输入订单编号"></el-input>
           </el-col>
           <el-col :span="3">
             <el-input v-model="operatorName" placeholder="执行者"></el-input>
@@ -93,6 +93,8 @@ export default {
       pageName: '销售记录',
       salesName: 'Joe',
       date: '',
+      orderId: '',
+      operatorName: '',
       tableData: Array(20).fill(item),
       orderInfo: Array(10).fill(orderInfo),
       dialogVisible: false
