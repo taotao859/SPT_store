@@ -56,7 +56,7 @@
             </el-table>
           </el-col>
         </el-row>
-        <el-dialog title="订单明细" :visible.sync="dialogVisible" width="40%" :before-close="handleClose">
+        <el-dialog title="订单明细" :visible.sync="dialogVisible" width="40%">
           <el-table :data="orderInfo" style="width: 100%" height="400px" :header-cell-style="{background:'#eef1f6',color:'#606266'}">
             <el-table-column prop="index" label="序" width="40px"></el-table-column>
             <el-table-column prop="ItemId" label="商品编号" width="150px"></el-table-column>
