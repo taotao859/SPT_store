@@ -351,4 +351,23 @@ public class WholeSaleController {
 
         return ordersMapper.selectList(ordersQueryWrapper);
     }
+
+    /**
+     * 取消订单
+     * @param orders 传入的订单
+     * @return 状态码，200表示取消成功，400表示取消失败
+     */
+    @PostMapping("cancel")
+    public Result cancelOrder(@RequestBody Orders orders) {
+        QueryWrapper<Orderitem> orderitemQueryWrapper = new QueryWrapper<>();
+        orderitemQueryWrapper.eq("order_item_orders_id", orders.getOrdersId());
+        List<Orderitem> orderitemList = orderitemMapper.selectList(orderitemQueryWrapper);
+        // 删除orderitem
+        for(Orderitem orderitem : orderitemList){
+            orderitemMapper.deleteById(orderitem.getOrderItemId());
+        }
+        // 删除order
+        ordersMapper.deleteById(orders.getOrdersId());
+        return new Result(200);
+    }
 }

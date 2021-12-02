@@ -9,11 +9,19 @@ public class Purchase {
     @TableId(type = IdType.AUTO)
     private int purchaseId;
     private String purchaseStaffId;
-    private String purchaseRepository;
+    private int purchaseRepositoryId;
     private int purchaseProductId;
     private int purchaseQuantity;
     private BigDecimal purchasePrice;
-    private DateTime purchaseDate;
+    private DateTime purchaseTime;
+
+    public int getPurchaseRepositoryId() {
+        return purchaseRepositoryId;
+    }
+
+    public void setPurchaseRepositoryId(int purchaseRepositoryId) {
+        this.purchaseRepositoryId = purchaseRepositoryId;
+    }
 
     public int getPurchaseId() {
         return purchaseId;
@@ -29,14 +37,6 @@ public class Purchase {
 
     public void setPurchaseStaffId(String purchaseStaffId) {
         this.purchaseStaffId = purchaseStaffId;
-    }
-
-    public String getPurchaseRepository() {
-        return purchaseRepository;
-    }
-
-    public void setPurchaseRepository(String purchaseRepository) {
-        this.purchaseRepository = purchaseRepository;
     }
 
     public int getPurchaseProductId() {
@@ -63,11 +63,11 @@ public class Purchase {
         this.purchasePrice = purchasePrice;
     }
 
-    public DateTime getPurchaseDate() {
-        return purchaseDate;
+    public DateTime getPurchaseTime() {
+        return purchaseTime;
     }
 
-    public void setPurchaseDate(DateTime purchaseDate) {
-        this.purchaseDate = purchaseDate;
+    public void setPurchaseTime(DateTime purchaseTime) {
+        this.purchaseTime = purchaseTime;
     }
 }
