@@ -33,37 +33,40 @@
       </el-header>
       <el-main>
         <el-row :gutter="20">
-          <el-col :span="3">
-            <el-select v-model="repository" placeholder="仓库">
-              <el-option v-for="item in repo" :key="item.value" :label="item.label" :value="item.value"></el-option>
-            </el-select>
-          </el-col>
-          <el-col :span="4">
+          <el-col :span="5">
             <el-input v-model="productId" placeholder="商品编号"></el-input>
           </el-col>
-          <el-col :span="4">
-            <el-input-number v-model="updateQuantity" @change="handleChange" :min="0" style="width: 100%"></el-input-number>
-          </el-col>
-          <el-col :span="5" style="text-align: left">
-            <el-date-picker v-model="dateValue" type="date" placeholder="选择日期"></el-date-picker>
-          </el-col>
-          <el-col :span="2" style="text-align: left">
-            <el-button>新增盘点</el-button>
-          </el-col>
-          <el-col :span="6" style="text-align: right">
-            <span style="line-height: 40px">盘点编号：</span>
-            <span v-text="checkNo" style="line-height: 40px"></span>
+          <el-col :span="19" style="text-align: left">
+            <el-button>查询</el-button>
           </el-col>
         </el-row>
         <br><br>
-        <el-table :data="repoDataCheck" height="600px" :header-cell-style="{background:'#eef1f6',color:'#606266'}">
+        <el-table :data="productData" height="600px" :header-cell-style="{background:'#eef1f6',color:'#606266'}">
           <el-table-column prop="index" label="序" width="46px"></el-table-column>
           <el-table-column prop="productId" label="商品编号" width="300px"></el-table-column>
           <el-table-column prop="productName" label="商品名称" width="300px"></el-table-column>
-          <el-table-column prop="originalQuantity" label="原始数量" width="250px"></el-table-column>
-          <el-table-column prop="updateQuantity" label="实际数量" width="200px"></el-table-column>
-          <el-table-column prop="diff" label="变化" width="200px"></el-table-column>
+          <el-table-column prop="quantity" label="数量" width="250px"></el-table-column>
+          <el-table-column prop="repository" label="仓库" width="200px"></el-table-column>
+          <el-table-column prop="operation" label="操作" width="200px">
+            <el-link @click="goodsTransferVisible = true">调货</el-link>
+          </el-table-column>
         </el-table>
+        <el-dialog title="调货" :visible.sync="goodsTransferVisible" width="25%">
+          <el-form :model="form">
+            <el-form-item label="目的仓库" :label-width="formLabelWidth" style="text-align: left">
+              <el-select v-model="repoTransfer" style="width: 200px">
+                <el-option v-for="item in repo" :key="item.value" :label="item.label" :value="item.value"></el-option>
+              </el-select>
+            </el-form-item>
+            <el-form-item label="商品数量" :label-width="formLabelWidth" style="text-align: left">
+              <el-input-number v-model="transferQuantity" @change="handleChange" :min="0" style="width: 200px"></el-input-number>
+            </el-form-item>
+          </el-form>
+          <div slot="footer" class="dialog-footer">
+            <el-button @click="goodsTransferVisible = false">取 消</el-button>
+            <el-button type="primary" @click="goodsTransferVisible = false">确 定</el-button>
+          </div>
+        </el-dialog>
       </el-main>
     </el-container>
   </el-container>
@@ -71,19 +74,21 @@
 
 <script>
 export default {
-  name: 'stockTrack',
+  name: 'GoodsTransfer',
   data () {
-    const checkDetail = {
+    const product = {
       index: '1',
-      productId: '1234432',
-      productName: '锤子',
-      originalQuantity: '1000',
-      updateQuantity: '1200',
-      diff: '+200'
+      productId: '1234567876',
+      productName: '手机',
+      quantity: '1000',
+      repository: '仓库2'
     }
     return {
-      pageName: '库存盘点',
+      pageName: '仓库调货',
       adminName: 'Joe',
+      srcRepository: '',
+      destRepository: '',
+      productId: '',
       repo: [{
         value: '选项1',
         label: '仓库1'
@@ -94,12 +99,10 @@ export default {
         value: '选项3',
         label: '仓库3'
       }],
-      repository: '',
-      updateQuantity: '',
-      dateValue: '',
-      checkNo: '123456789',
-      repoDataCheck: Array(15).fill(checkDetail),
-      productId: ''
+      repoTransfer: '',
+      transferQuantity: '',
+      goodsTransferVisible: false,
+      productData: Array(20).fill(product)
     }
   },
   methods: {

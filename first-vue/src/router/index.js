@@ -12,6 +12,7 @@ import RepoPurchase from '@/components/repositoryAdmin/RepoPurchase'
 import RepoPurchaseLog from '@/components/repositoryAdmin/RepoPurchaseLog'
 import StockTrack from '@/components/repositoryAdmin/StockTrack'
 import StatisticalQuery from '@/components/repositoryAdmin/StatisticalQuery'
+import GoodsTransfer from '@/components/repositoryAdmin/GoodsTransfer'
 
 Vue.use(Router)
 
@@ -76,6 +77,11 @@ export default new Router({
       path: '/statisticalQuery',
       name: StatisticalQuery,
       component: StatisticalQuery
+    },
+    {
+      path: '/goodsTransfer',
+      name: GoodsTransfer,
+      component: GoodsTransfer
     }
   ]
 })

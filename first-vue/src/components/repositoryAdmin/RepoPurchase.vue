@@ -10,6 +10,9 @@
         <el-menu-item index="/stockTrack">
           <template slot="title">库存盘点</template>
         </el-menu-item>
+        <el-menu-item index="/goodsTransfer">
+          <template slot="title">仓库调货</template>
+        </el-menu-item>
         <el-menu-item index="/statisticalQuery">
           <template slot="title">统计查询</template>
         </el-menu-item>
