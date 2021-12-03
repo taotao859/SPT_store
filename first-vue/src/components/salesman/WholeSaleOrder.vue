@@ -75,10 +75,10 @@
             <el-button @click="cancel">取消</el-button>
           </el-col>
           <el-col :span="2">
-            <el-button @click="save">保存</el-button>
+            <el-button @click="save" :plain="true">保存</el-button>
           </el-col>
           <el-col :span="2">
-            <el-button @click="verify">提交</el-button>
+            <el-button @click="verify" :plain="true">提交</el-button>
           </el-col>
         </el-row>
       </el-main>
@@ -115,8 +115,10 @@ export default {
     deleteItem () {
     },
     save () {
+      this.$message({type: 'success', message: '保存成功'})
     },
     verify () {
+      this.$message({type: 'success', message: '提交成功'})
     },
     cancel () {
     }

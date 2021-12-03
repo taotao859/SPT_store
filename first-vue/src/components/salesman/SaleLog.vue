@@ -46,12 +46,18 @@
             <el-table :data="tableData" style="width: 1270px" height="600px" :header-cell-style="{background:'#eef1f6',color:'#606266'}">
               <el-table-column prop="index" label="序" width="100px"></el-table-column>
               <el-table-column prop="retailOrderId" label="订单编号" width="350px"></el-table-column>
-              <el-table-column prop="retailOrderDate" label="日期" width="350px"></el-table-column>
-              <el-table-column prop="retailOrderOperator" label="执行者" width="250px"></el-table-column>
+              <el-table-column prop="retailOrderDate" label="日期" width="300px"></el-table-column>
+              <el-table-column prop="orderState" label="订单状态" width="150px"></el-table-column>
+              <el-table-column prop="retailOrderOperator" label="执行者" width="150px"></el-table-column>
               <el-table-column label="操作" width="220px">
-                <el-col style="text-align: center">
-                  <el-link @click="dialogVisible = true">查看</el-link>
-                </el-col>
+                <el-row>
+                  <el-col :span="12">
+                    <el-link @click="dialogVisible = true">查看</el-link>
+                  </el-col>
+                  <el-col :span="12">
+                    <el-link @click="refund">退货</el-link>
+                  </el-col>
+                </el-row>
               </el-table-column>
             </el-table>
           </el-col>
@@ -79,6 +85,7 @@ export default {
       index: '1',
       retailOrderId: '12345678',
       retailOrderDate: '2021-11-29',
+      orderState: '交易成功',
       retailOrderOperator: 'Joe'
     }
     const orderInfo = {
@@ -102,6 +109,9 @@ export default {
   },
   methods: {
     search () {
+    },
+    refund () {
+      this.$message({type: 'success', message: '退货成功'})
     }
   }
 }
