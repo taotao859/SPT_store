@@ -8,6 +8,11 @@ import WholeSaleOrder from '@/components/salesman/WholeSaleOrder'
 import WholeSaleOrderInfo from '@/components/salesman/WholeSaleOrderInfo'
 import SaleLog from '@/components/salesman/SaleLog'
 import RepoHomePage from '@/components/repositoryAdmin/RepoHomePage'
+import RepoPurchase from '@/components/repositoryAdmin/RepoPurchase'
+import RepoPurchaseLog from '@/components/repositoryAdmin/RepoPurchaseLog'
+import StockTrack from '@/components/repositoryAdmin/StockTrack'
+import StatisticalQuery from '@/components/repositoryAdmin/StatisticalQuery'
+
 Vue.use(Router)
 
 export default new Router({
@@ -51,6 +56,26 @@ export default new Router({
       path: '/repoHomePage',
       name: RepoHomePage,
       component: RepoHomePage
+    },
+    {
+      path: '/repoPurchase',
+      name: RepoPurchase,
+      component: RepoPurchase
+    },
+    {
+      path: '/repoPurchaseLog',
+      name: RepoPurchaseLog,
+      component: RepoPurchaseLog
+    },
+    {
+      path: '/stockTrack',
+      name: StockTrack,
+      component: StockTrack
+    },
+    {
+      path: '/statisticalQuery',
+      name: StatisticalQuery,
+      component: StatisticalQuery
     }
   ]
 })

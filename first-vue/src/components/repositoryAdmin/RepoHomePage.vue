@@ -1,7 +1,7 @@
 <template>
   <el-container>
     <el-aside width="200px">
-      <el-menu :default-active="this.$router.path" route>
+      <el-menu :default-active="this.$router.path" router>
         <el-submenu index="1">
           <template slot="title">入库</template>
           <el-menu-item index="/repoPurchase">进货</el-menu-item>
@@ -18,11 +18,11 @@
     <el-container>
       <el-header>
         <el-row :gutter="20">
-          <el-col :span="2">
+          <el-col :span="4" style="text-align: left">
             <div v-text="pageName"></div>
           </el-col>
-          <el-col :span="4" :offset="18">
-            Hello, <span id="salesman" v-text="salesName"></span>
+          <el-col :span="20" style="text-align: right">
+            Hello, <span id="salesman" v-text="adminName"></span>
             <el-button icon="el-icon-s-home" circle style="border: none;background: none" @click="$router.push({path: '/repoHomePage'})"></el-button>
             <el-button id="log-out-button" icon="el-icon-switch-button" @click="$router.push({path: '/login'})"></el-button>
           </el-col>
@@ -40,8 +40,8 @@ export default {
   name: 'RepoHomePage',
   data () {
     return {
-      pageName: '主页',
-      salesName: 'Joe'
+      pageName: '首页',
+      adminName: 'Joe'
     }
   }
 }
