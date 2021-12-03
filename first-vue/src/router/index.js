@@ -13,6 +13,10 @@ import RepoPurchaseLog from '@/components/repositoryAdmin/RepoPurchaseLog'
 import StockTrack from '@/components/repositoryAdmin/StockTrack'
 import StatisticalQuery from '@/components/repositoryAdmin/StatisticalQuery'
 import GoodsTransfer from '@/components/repositoryAdmin/GoodsTransfer'
+import BossHomePage from '@/components/boss/bossHomePage'
+import ProductList from '@/components/boss/ProductList'
+import StaffList from '@/components/boss/StaffList'
+import Profit from '@/components/boss/Profit'
 
 Vue.use(Router)
 
@@ -82,6 +86,26 @@ export default new Router({
       path: '/goodsTransfer',
       name: GoodsTransfer,
       component: GoodsTransfer
+    },
+    {
+      path: '/bossHomePage',
+      name: BossHomePage,
+      component: BossHomePage
+    },
+    {
+      path: '/productList',
+      name: ProductList,
+      component: ProductList
+    },
+    {
+      path: '/staffList',
+      name: StaffList,
+      component: StaffList
+    },
+    {
+      path: '/profit',
+      name: Profit,
+      component: Profit
     }
   ]
 })
