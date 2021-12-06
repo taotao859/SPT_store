@@ -8,6 +8,9 @@
         <el-menu-item index="/staffList">
           <template slot="title">员工列表</template>
         </el-menu-item>
+        <el-menu-item index="/customerInfo">
+          <template slot="title">客户信息</template>
+        </el-menu-item>
         <el-menu-item index="/profit">
           <template slot="title">收益信息</template>
         </el-menu-item>

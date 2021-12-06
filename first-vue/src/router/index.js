@@ -11,12 +11,15 @@ import RepoHomePage from '@/components/repositoryAdmin/RepoHomePage'
 import RepoPurchase from '@/components/repositoryAdmin/RepoPurchase'
 import RepoPurchaseLog from '@/components/repositoryAdmin/RepoPurchaseLog'
 import StockTrack from '@/components/repositoryAdmin/StockTrack'
-import StatisticalQuery from '@/components/repositoryAdmin/StatisticalQuery'
 import GoodsTransfer from '@/components/repositoryAdmin/GoodsTransfer'
 import BossHomePage from '@/components/boss/bossHomePage'
 import ProductList from '@/components/boss/ProductList'
 import StaffList from '@/components/boss/StaffList'
 import Profit from '@/components/boss/Profit'
+import TransferLog from '@/components/repositoryAdmin/TransferLog'
+import RepoOutLog from '@/components/repositoryAdmin/RepoOutLog'
+import Stock from '@/components/repositoryAdmin/Stock'
+import CustomerInfo from '@/components/boss/CustomerInfo'
 
 Vue.use(Router)
 
@@ -78,14 +81,24 @@ export default new Router({
       component: StockTrack
     },
     {
-      path: '/statisticalQuery',
-      name: StatisticalQuery,
-      component: StatisticalQuery
-    },
-    {
       path: '/goodsTransfer',
       name: GoodsTransfer,
       component: GoodsTransfer
+    },
+    {
+      path: '/transferLog',
+      name: TransferLog,
+      component: TransferLog
+    },
+    {
+      path: '/repoOutLog',
+      name: RepoOutLog,
+      component: RepoOutLog
+    },
+    {
+      path: '/stock',
+      name: Stock,
+      component: Stock
     },
     {
       path: '/bossHomePage',
@@ -101,6 +114,11 @@ export default new Router({
       path: '/staffList',
       name: StaffList,
       component: StaffList
+    },
+    {
+      path: '/customerInfo',
+      name: CustomerInfo,
+      component: CustomerInfo
     },
     {
       path: '/profit',

@@ -10,12 +10,16 @@
         <el-menu-item index="/stockTrack">
           <template slot="title">库存盘点</template>
         </el-menu-item>
-        <el-menu-item index="/goodsTransfer">
-          <template slot="title">仓库调货</template>
-        </el-menu-item>
-        <el-menu-item index="/statisticalQuery">
+        <el-submenu index="2">
+          <template slot="title">调货</template>
+          <el-menu-item index="/goodsTransfer">商品调货</el-menu-item>
+          <el-menu-item index="/transferLog">调货记录</el-menu-item>
+        </el-submenu>
+        <el-submenu index="3">
           <template slot="title">统计查询</template>
-        </el-menu-item>
+          <el-menu-item index="/repoOutLog">出库记录</el-menu-item>
+          <el-menu-item index="/stock">库存查询</el-menu-item>
+        </el-submenu>
       </el-menu>
     </el-aside>
     <el-container>
@@ -49,10 +53,6 @@
           </el-col>
           <el-col :span="2" style="text-align: left">
             <el-button>新增盘点</el-button>
-          </el-col>
-          <el-col :span="6" style="text-align: right">
-            <span style="line-height: 40px">盘点编号：</span>
-            <span v-text="checkNo" style="line-height: 40px"></span>
           </el-col>
         </el-row>
         <br><br>
