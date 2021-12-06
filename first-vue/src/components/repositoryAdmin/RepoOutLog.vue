@@ -93,6 +93,16 @@ export default {
     return {
       pageName: '出库记录',
       adminName: 'Joe',
+      repo: [{
+        value: '选项1',
+        label: '仓库1'
+      }, {
+        value: '选项2',
+        label: '仓库2'
+      }, {
+        value: '选项3',
+        label: '仓库3'
+      }],
       repositorySelect: '',
       orderIdInput: '',
       repoOutData: Array(15).fill(repoOut),
