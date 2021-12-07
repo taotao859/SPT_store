@@ -1,18 +1,17 @@
 <template>
   <el-container>
     <el-aside width="200px">
-      <el-menu :default-active="this.$router.path" router :default-openeds="['2']">
-        <el-menu-item index="/retail">
+      <el-menu :default-active="this.$router.path" router :default-openeds="['2']" @cell-click="handle">
+        <el-submenu index="1">
           <template slot="title">零售</template>
-        </el-menu-item>
+          <el-menu-item index="/retail">零售订单</el-menu-item>
+          <el-menu-item index="/saleLog">订单详情</el-menu-item>
+        </el-submenu>
         <el-submenu index="2">
           <template slot="title">批发</template>
           <el-menu-item index="/wholeSaleOrder">批发订单</el-menu-item>
           <el-menu-item index="/wholeSaleOrderInfo">订单详情</el-menu-item>
         </el-submenu>
-        <el-menu-item index="/saleLog">
-          <template slot="title">销售记录</template>
-        </el-menu-item>
       </el-menu>
     </el-aside>
     <el-container>

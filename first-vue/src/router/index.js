@@ -20,6 +20,7 @@ import TransferLog from '@/components/repositoryAdmin/TransferLog'
 import RepoOutLog from '@/components/repositoryAdmin/RepoOutLog'
 import Stock from '@/components/repositoryAdmin/Stock'
 import CustomerInfo from '@/components/boss/CustomerInfo'
+import AfterSale from '@/components/boss/AfterSale'
 
 Vue.use(Router)
 
@@ -124,6 +125,11 @@ export default new Router({
       path: '/profit',
       name: Profit,
       component: Profit
+    },
+    {
+      path: '/afterSale',
+      name: AfterSale,
+      component: AfterSale
     }
   ]
 })

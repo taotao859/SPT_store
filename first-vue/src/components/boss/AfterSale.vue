@@ -26,45 +26,19 @@
             <div v-text="pageName"></div>
           </el-col>
           <el-col :span="20" style="text-align: right">
-            Hello, <span id="salesman" v-text="bossName"></span>
+            Hello, <span id="salesman" v-text="salesName"></span>
             <el-button icon="el-icon-s-home" circle style="border: none;background: none" @click="$router.push({path: '/bossHomePage'})"></el-button>
             <el-button id="log-out-button" icon="el-icon-switch-button" @click="$router.push({path: '/login'})"></el-button>
           </el-col>
         </el-row>
       </el-header>
       <el-main>
-        <el-row :gutter="20">
-          <el-col :span="4">
-            <el-input v-model="staffName" placeholder="员工姓名"></el-input>
-          </el-col>
-          <el-col :span="4">
-            <el-select v-model="staffTitle" placeholder="员工职位">
-              <el-option value="销售员"></el-option>
-              <el-option value="仓库管理员"></el-option>
-            </el-select>
-          </el-col>
-          <el-col :span="2">
-            <el-button>添加</el-button>
-          </el-col>
-        </el-row>
-        <br><br>
-        <el-table :data="staffList" style="width: 100%" height="600px" :header-cell-style="{background:'#eef1f6',color:'#606266'}">
-          <el-table-column prop="index" label="序" width="76px"></el-table-column>
-          <el-table-column prop="id" label="员工编号" width="300px"></el-table-column>
-          <el-table-column prop="name" label="员工姓名" width="300px"></el-table-column>
-          <el-table-column prop="title" label="职位" width="220px"></el-table-column>
-          <el-table-column prop="staffInfo" label="员工信息" width="200px">
-            <el-link @click="infoVisible = true">查看</el-link>
-          </el-table-column>
-          <el-table-column prop="operation" label="操作" width="200px">
-            <el-link @click="fireStaff">解雇</el-link>
-          </el-table-column>
+        <el-table :data="afterSaleTable" height="700px" :header-cell-style="{background:'#eef1f6',color:'#606266'}">
+          <el-table-column prop="index" label="序" width="79px"></el-table-column>
+          <el-table-column prop="orderId" label="订单编号" width="400px"></el-table-column>
+          <el-table-column prop="orderTime" label="订单时间" width="400px"></el-table-column>
+          <el-table-column prop="operator" label="执行者" width="400px"></el-table-column>
         </el-table>
-        <el-dialog title="员工信息" :visible.sync="infoVisible" width="40%">
-          <div v-text="staffList[0].name" style="line-height: 40px; font-size: 20px"></div>
-          <div v-text="staffList[0].title" style="line-height: 40px; font-size: 20px"></div>
-          <div v-text="staffContact" style="line-height: 40px; font-size: 20px"></div>
-        </el-dialog>
       </el-main>
     </el-container>
   </el-container>
@@ -72,29 +46,18 @@
 
 <script>
 export default {
-  name: 'StaffList',
+  name: 'AfterSale',
   data () {
-    const staff = {
+    const afterSaleDetail = {
       index: '1',
-      id: '1234',
-      name: 'Sandy',
-      title: '售货员'
+      orderId: '123432',
+      orderTime: '2021-12-4',
+      operator: 'Joe'
     }
     return {
-      pageName: '员工列表',
-      bossName: 'Joe',
-      staffTitle: '',
-      infoVisible: false,
-      staffList: Array(15).fill(staff),
-      staffContact: '123-45-678'
-    }
-  },
-  methods: {
-    fireStaff () {
-      this.$message({
-        message: '员工已被解雇',
-        type: 'success'
-      })
+      pageName: '售后服务',
+      salesName: 'Joe',
+      afterSaleTable: Array(15).fill(afterSaleDetail)
     }
   }
 }

@@ -1,18 +1,17 @@
 <template>
   <el-container>
     <el-aside width="200px">
-      <el-menu :default-active="this.$router.path" router :default-openeds="['2']">
-        <el-menu-item index="/retail">
+      <el-menu :default-active="this.$router.path" router :default-openeds="['2']" @cell-click="handle">
+        <el-submenu index="1">
           <template slot="title">零售</template>
-        </el-menu-item>
+          <el-menu-item index="/retail">零售订单</el-menu-item>
+          <el-menu-item index="/saleLog">订单详情</el-menu-item>
+        </el-submenu>
         <el-submenu index="2">
           <template slot="title">批发</template>
           <el-menu-item index="/wholeSaleOrder">批发订单</el-menu-item>
           <el-menu-item index="/wholeSaleOrderInfo">订单详情</el-menu-item>
         </el-submenu>
-        <el-menu-item index="/saleLog">
-          <template slot="title">销售记录</template>
-        </el-menu-item>
       </el-menu>
     </el-aside>
     <el-container>
@@ -43,21 +42,24 @@
         <br><br>
         <el-row>
           <el-col>
-            <el-table :data="tableData" style="width: 1270px" height="600px" :header-cell-style="{background:'#eef1f6',color:'#606266'}">
+            <el-table :data="tableData" style="width: 1270px" height="600px" :header-cell-style="{background:'#eef1f6',color:'#606266'}" @cell-click="handle">
               <el-table-column prop="index" label="序" width="80px"></el-table-column>
               <el-table-column prop="wholeSaleOrderId" label="批发订单编号" width="280px"></el-table-column>
               <el-table-column prop="wholeSaleOrderDate" label="日期" width="270px"></el-table-column>
               <el-table-column prop="wholeSaleOrderOperator" label="执行者" width="210px"></el-table-column>
               <el-table-column prop="wholeSaleOrderState" label="订单状态" width="180px"></el-table-column>
               <el-table-column label="操作" width="250px">
-                <el-col :span="8" style="text-align: center">
+                <el-col :span="6" style="text-align: center">
                   <el-link @click="detailVisible = true">查看</el-link>
                 </el-col>
-                <el-col :span="8" style="text-align: center">
+                <el-col :span="6" style="text-align: center">
                   <el-link>审核</el-link>
                 </el-col>
-                <el-col :span="8" style="text-align: center">
+                <el-col :span="6" style="text-align: center">
                   <el-link @click="payVisible = true">收款</el-link>
+                </el-col>
+                <el-col :span="6" style="text-align: center">
+                  <el-link>退货</el-link>
                 </el-col>
               </el-table-column>
             </el-table>
@@ -72,9 +74,6 @@
             <el-table-column prop="ItemPrice" label="单价" width="75px"></el-table-column>
             <el-table-column prop="ItemTotalPrice" label="合计" width="99px"></el-table-column>
           </el-table>
-          <div slot="footer">
-            <el-button @click="handinVisible = true">提交</el-button>
-          </div>
         </el-dialog>
         <el-dialog title="款项明细" :visible.sync="payVisible" width="40%">
           <el-row :gutter="20">
@@ -93,13 +92,6 @@
             <el-table-column prop="restMoney" label="结余" width="100px"></el-table-column>
             <el-table-column prop="operator" label="执行者" width="100px"></el-table-column>
           </el-table>
-        </el-dialog>
-        <el-dialog title="提交确认" :visible.sync="handinVisible" width="30%">
-          <span>确认提交？</span>
-          <span slot="footer" class="dialog-footer">
-            <el-button @click="handinVisible=false;detailVisible=true">取消</el-button>
-            <el-button @click="handinVisible=false;detailVisible=false">确认</el-button>
-          </span>
         </el-dialog>
       </el-main>
     </el-container>
@@ -158,6 +150,12 @@ export default {
           done()
         })
         .catch(_ => {})
+    },
+    handle (row, column, cell, event) {
+      this.$message({
+        message: row['wholeSaleOrderId'],
+        type: 'success'
+      })
     }
   }
 }

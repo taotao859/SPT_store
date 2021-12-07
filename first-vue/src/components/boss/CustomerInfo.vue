@@ -14,6 +14,9 @@
         <el-menu-item index="/profit">
           <template slot="title">收益信息</template>
         </el-menu-item>
+        <el-menu-item index="/afterSale">
+          <template slot="title">售后服务</template>
+        </el-menu-item>
       </el-menu>
     </el-aside>
     <el-container>
