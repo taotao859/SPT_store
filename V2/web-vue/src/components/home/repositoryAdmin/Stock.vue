@@ -43,17 +43,21 @@
           <el-col :span="5">
             <el-input v-model="productNameInput" placeholder="商品名称"></el-input>
           </el-col>
-          <el-col :span="16" style="text-align: left">
+          <el-col :span="4" style="text-align: left">
             <el-button @click="check">查询</el-button>
+          </el-col>
+          <el-col :span="11" style="text-align: right; line-height: 40px; font-size: 20px">
+            积压总金额：<span v-text="stockMoney"></span>
           </el-col>
         </el-row>
         <br><br>
         <el-table :data="stockData" height="600px" :header-cell-style="{background:'#eef1f6',color:'#606266'}">
-          <el-table-column prop="index" label="序" width="66px"></el-table-column>
+          <el-table-column prop="index" label="序" width="49px"></el-table-column>
           <el-table-column prop="productId" label="商品编号" width="350px"></el-table-column>
-          <el-table-column prop="productName" label="商品名称" width="350px"></el-table-column>
-          <el-table-column prop="quantity" label="数量" width="280px"></el-table-column>
-          <el-table-column prop="repository" label="仓库" width="250px"></el-table-column>
+          <el-table-column prop="productName" label="商品名称" width="300px"></el-table-column>
+          <el-table-column prop="quantity" label="数量" width="200px"></el-table-column>
+          <el-table-column prop="repository" label="仓库" width="200px"></el-table-column>
+          <el-table-column prop="productStockMoney" label="积压金额" width="180px"></el-table-column>
         </el-table>
       </el-main>
     </el-container>
@@ -88,7 +92,8 @@ export default {
       }],
       repositorySelect: '',
       //stockData: Array(15).fill(product),
-      stockData:[]
+      stockData:[],
+      stockMoney: ''
     }
   },
   mounted: function() {

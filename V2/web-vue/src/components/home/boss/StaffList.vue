@@ -11,14 +11,14 @@
         <el-menu-item index="/customerInfo">
           <template slot="title">客户信息</template>
         </el-menu-item>
+        <el-menu-item index="/saleInfo">
+          <template slot="title">销售详情</template>
+        </el-menu-item>
         <el-menu-item index="/profit">
           <template slot="title">收益信息</template>
         </el-menu-item>
         <el-menu-item index="/afterSale">
           <template slot="title">售后服务</template>
-        </el-menu-item>
-        <el-menu-item index="/saleInfo">
-          <template slot="title">销售详情</template>
         </el-menu-item>
       </el-menu>
     </el-aside>

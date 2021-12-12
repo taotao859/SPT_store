@@ -42,112 +42,178 @@ export default new Router({
     {
       path: '/Boss',
       name: 'Boss',
-      component: Boss
+      component: Boss,
+      meta: {
+        requireAuth: true
+      }
     },
     {
       path: '/salesperson',
       name: 'salesperson',
-      component: salesperson
+      component: salesperson,
+      meta: {
+        requireAuth: true
+      }
     },
     {
       path: '/retail',
       name: 'Retail',
-      component: Retail
+      component: Retail,
+      meta: {
+        requireAuth: true
+      }
     },
     {
       path: '/wholeSaleOrder',
       name: 'WholeSaleOrder',
-      component: WholeSaleOrder
+      component: WholeSaleOrder,
+      meta: {
+        requireAuth: true
+      }
     },
     {
       path: '/saleLog',
       name: 'SaleLog',
-      component: SaleLog
+      component: SaleLog,
+      meta: {
+        requireAuth: true
+      }
     },
     {
       path: '/wholeSaleOrderInfo',
       name: 'WholeSaleOrderInfo',
-      component: WholeSaleOrderInfo
+      component: WholeSaleOrderInfo,
+      meta: {
+        requireAuth: true
+      }
     },
     {
       path: '/saleHomePage',
       name: 'SaleHomePage',
-      component: SaleHomePage
+      component: SaleHomePage,
+      meta: {
+        requireAuth: true
+      }
     },
     {
       path: '/repoHomePage',
       name: 'RepoHomePage',
-      component: RepoHomePage
+      component: RepoHomePage,
+      meta: {
+        requireAuth: true
+      }
     },
     {
       path: '/repoPurchase',
       name: RepoPurchase,
-      component: RepoPurchase
+      component: RepoPurchase,
+      meta: {
+        requireAuth: true
+      }
     },
     {
       path: '/repoPurchaseLog',
       name: 'RepoPurchaseLog',
-      component: RepoPurchaseLog
+      component: RepoPurchaseLog,
+      meta: {
+        requireAuth: true
+      }
     },
     {
       path: '/stockTrack',
       name: StockTrack,
-      component: StockTrack
+      component: StockTrack,
+      meta: {
+        requireAuth: true
+      }
     },
     {
       path: '/statisticalQuery',
       name: StatisticalQuery,
-      component: StatisticalQuery
+      component: StatisticalQuery,
+      meta: {
+        requireAuth: true
+      }
     },
     {
       path: '/goodsTransfer',
       name: GoodsTransfer,
-      component: GoodsTransfer
+      component: GoodsTransfer,
+      meta: {
+        requireAuth: true
+      }
     },
     {
       path: '/bossHomePage',
       name: 'BossHomePage',
-      component: Boss
+      component: Boss,
+      meta: {
+        requireAuth: true
+      }
     },
     {
       path: '/productList',
       name: Productlist,
-      component: Productlist
+      component: Productlist,
+      meta: {
+        requireAuth: true
+      }
     },
     {
       path: '/staffList',
       name: StaffList,
-      component: StaffList
+      component: StaffList,
+      meta: {
+        requireAuth: true
+      }
     },
     {
       path: '/profit',
       name: Profit,
-      component: Profit
+      component: Profit,
+      meta: {
+        requireAuth: true
+      }
     },
     {
       path: '/afterSale',
       name: AfterSale,
-      component: AfterSale
+      component: AfterSale,
+      meta: {
+        requireAuth: true
+      }
     },
     {
       path: '/stock',
       name: Stock,
-      component: Stock
+      component: Stock,
+      meta: {
+        requireAuth: true
+      }
     },
     {
       path: '/repoOutLog',
       name: RepoOutLog,
-      component: RepoOutLog
+      component: RepoOutLog,
+      meta: {
+        requireAuth: true
+      }
     },
     {
       path: '/customerInfo',
       name: CustomerInfo,
-      component: CustomerInfo
+      component: CustomerInfo,
+      meta: {
+        requireAuth: true
+      }
     },
     {
       path: '/saleInfo',
       name: SaleInfo,
-      component: SaleInfo
+      component: SaleInfo,
+      meta: {
+        requireAuth: true
+      }
     }
   ]
 })

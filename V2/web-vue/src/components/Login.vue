@@ -11,6 +11,14 @@
       <el-input type="password" v-model="loginForm.staffPassword"
                 auto-complete="off" placeholder="密码"></el-input>
     </el-form-item>
+    <!-- 验证码 -->
+    <el-form-item prop="vertify_code">
+      <el-input type="text" v-model="loginForm.verifyCode" placeholder="验证码" prefix-icon="el-icon-key">
+        <template slot="append">
+          <img class="login-code" :src=code_url @click="getVertifyCode" title="看不清？点击切换"/>
+        </template>
+      </el-input>
+    </el-form-item>
     <el-form-item style="width: 100%">
       <el-button type="primary" style="width: 100%;background: #505458;border: none" v-on:click="login">登录</el-button>
     </el-form-item>
@@ -27,21 +35,29 @@ export default {
     return {
       loginForm: {
         staffId: '',
-        staffPassword: ''
+        staffPassword: '',
+        verifyCode:''
       },
-      staff: []
+      staff: [],
+      code_url:''
     }
+  },
+  created(){
+    this.getVertifyCode ()
   },
   methods: {
     login () {
-      this.$axios.post('/login', {staffId: this.loginForm.staffId, staffPassword: this.loginForm.staffPassword}).then(response => {
+      console.log(this.$store.state)
+      this.$axios.post('/login', {staffId: this.loginForm.staffId, staffPassword: this.loginForm.staffPassword, verifyCode:this.loginForm.verifyCode}).then(response => {
       //Login(this.loginForm).then(response => {
         if (response.data.code === 200) {
           this.$router.replace({path: '/Boss'})
           this.$axios.get('/staff/get?staffId='+this.loginForm.staffId).then(response => {
-            this.staff = response
+            this.staff = response.data
             this.$store.commit('saveStaff_id',response.data.staffId)
             this.$store.commit('saveStaff_name',response.data.staffName)
+            var path = this.$route.query.redirect
+            this.$router.replace({path: path === '/' || path === undefined ? '/login' : path})
           })
         }
         if (response.data.code === 201) {
@@ -50,6 +66,8 @@ export default {
             this.staff = response
             this.$store.commit('saveStaff_id',response.data.staffId)
             this.$store.commit('saveStaff_name',response.data.staffName)
+            var path = this.$route.query.redirect
+            this.$router.replace({path: path === '/' || path === undefined ? '/login' : path})
           })
         }
         if (response.data.code === 202) {
@@ -58,11 +76,37 @@ export default {
             this.staff = response
             this.$store.commit('saveStaff_id',response.data.staffId)
             this.$store.commit('saveStaff_name',response.data.staffName)
+            var path = this.$route.query.redirect
+            this.$router.replace({path: path === '/' || path === undefined ? '/login' : path})
+          })
+        }
+        if(response.data.code === 400 || response.data.code === 405)
+        {
+          this.$message({
+            message: '登录失败：用户名或密码错误',
+            type: 'error'
+          })
+        }
+        if(response.data.code === 500)
+        {
+          this.$message({
+            message: '登录失败，验证码错误',
+            type: 'error'
           })
         }
       }).catch(failResponse => {
       })
-    }
+    },
+    // 获取验证码
+    async getVertifyCode () {
+      const { data: res } = await this.$http.get('/getVertifyCodeImage/?time=' + Math.random())
+      // console.log(res)
+      this.code_url = res // 验证码图片渲染
+    },
+  },
+  mounted: function() {
+    this.$store.commit('saveStaff_id',null)
+    this.$store.commit('saveStaff_name',null)
   }
 }
 

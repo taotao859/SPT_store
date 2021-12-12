@@ -11,14 +11,14 @@
         <el-menu-item index="/customerInfo">
           <template slot="title">客户信息</template>
         </el-menu-item>
+        <el-menu-item index="/saleInfo">
+          <template slot="title">销售详情</template>
+        </el-menu-item>
         <el-menu-item index="/profit">
           <template slot="title">收益信息</template>
         </el-menu-item>
         <el-menu-item index="/afterSale">
           <template slot="title">售后服务</template>
-        </el-menu-item>
-        <el-menu-item index="/saleInfo">
-          <template slot="title">销售详情</template>
         </el-menu-item>
       </el-menu>
     </el-aside>
@@ -38,10 +38,10 @@
       <el-main>
         <el-row :gutter="20">
           <el-col :span="4">
-            <el-input v-text="productNameInput" placeholder="商品名"></el-input>
+            <el-input v-model="productNameInput" placeholder="商品名"></el-input>
           </el-col>
           <el-col :span="4">
-            <el-input v-text="customerNameInput" placeholder="客户名"></el-input>
+            <el-input v-model="customerNameInput" placeholder="客户名"></el-input>
           </el-col>
           <el-col :span="2">
             <el-button @click="query">查询</el-button>
@@ -50,9 +50,11 @@
         <br><br>
         <el-table :data="saleInfo" height="600px" :header-cell-style="{background:'#eef1f6',color:'#606266'}">
           <el-table-column prop="index" label="序" width="96px"></el-table-column>
-          <el-table-column prop="orderId" label="订单编号" width="300px"></el-table-column>
-          <el-table-column prop="productName" label="商品名" width="300px"></el-table-column>
-          <el-table-column prop="customerName" label="客户名" width="300px"></el-table-column>
+          <el-table-column prop="orderId" label="订单编号" width="250px"></el-table-column>
+          <el-table-column prop="productName" label="商品名" width="250px"></el-table-column>
+          <el-table-column prop="customerName" label="客户名" width="250px"></el-table-column>
+          <el-table-column prop="orderState" label="订单状态" width="250px"></el-table-column>
+          <el-table-column prop="orderPrice" label="金额" width="250px"></el-table-column>
         </el-table>
       </el-main>
     </el-container>
