@@ -17,6 +17,9 @@
         <el-menu-item index="/afterSale">
           <template slot="title">售后服务</template>
         </el-menu-item>
+        <el-menu-item index="/saleInfo">
+          <template slot="title">销售详情</template>
+        </el-menu-item>
       </el-menu>
     </el-aside>
     <el-container>

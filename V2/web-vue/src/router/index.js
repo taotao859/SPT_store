@@ -23,6 +23,7 @@ import AfterSale from '../components/home/boss/AfterSale'
 import CustomerInfo from '../components/home/boss/CustomerInfo'
 import Stock from '../components/home/repositoryAdmin/Stock'
 import RepoOutLog from '../components/home/repositoryAdmin/RepoOutLog'
+import SaleInfo from '../components/home/boss/SaleInfo'
 
 Vue.use(Router)
 
@@ -30,8 +31,8 @@ export default new Router({
   routes: [
     // 下面都是固定的写法
     {
-      path:'/',
-      redirect:'/login',
+      path: '/',
+      redirect: '/login'
     },
     {
       path: '/login',
@@ -72,8 +73,7 @@ export default new Router({
       path: '/saleHomePage',
       name: 'SaleHomePage',
       component: SaleHomePage
-    }
-    ,
+    },
     {
       path: '/repoHomePage',
       name: 'RepoHomePage',
@@ -143,6 +143,11 @@ export default new Router({
       path: '/customerInfo',
       name: CustomerInfo,
       component: CustomerInfo
+    },
+    {
+      path: '/saleInfo',
+      name: SaleInfo,
+      component: SaleInfo
     }
   ]
 })

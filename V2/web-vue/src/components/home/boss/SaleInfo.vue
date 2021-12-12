@@ -37,33 +37,23 @@
       </el-header>
       <el-main>
         <el-row :gutter="20">
-          <el-col :span="7">
-<!--            日期对应的值为数组-->
-            <el-date-picker  v-model="dateValue" type="daterange" range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期">
-            </el-date-picker>
+          <el-col :span="4">
+            <el-input v-text="productNameInput" placeholder="商品名"></el-input>
+          </el-col>
+          <el-col :span="4">
+            <el-input v-text="customerNameInput" placeholder="客户名"></el-input>
           </el-col>
           <el-col :span="2">
             <el-button @click="query">查询</el-button>
           </el-col>
         </el-row>
         <br><br>
-        <el-table :data="profitTable" height="600px" :header-cell-style="{background:'#eef1f6',color:'#606266'}"@cell-click="handle">
+        <el-table :data="saleInfo" height="600px" :header-cell-style="{background:'#eef1f6',color:'#606266'}">
           <el-table-column prop="index" label="序" width="96px"></el-table-column>
           <el-table-column prop="orderId" label="订单编号" width="300px"></el-table-column>
-          <el-table-column prop="orderTime" label="订单时间" width="300px"></el-table-column>
-          <el-table-column prop="orderCategory" label="订单类型" width="300px"></el-table-column>
-          <el-table-column prop="orderProfit" label="订单收益" width="300px"></el-table-column>
+          <el-table-column prop="productName" label="商品名" width="300px"></el-table-column>
+          <el-table-column prop="customerName" label="客户名" width="300px"></el-table-column>
         </el-table>
-        <el-dialog title="订单明细" :visible.sync="detailVisible" width="40%">
-          <el-table :data="orderInfo" style="width: 100%" height="400px" :header-cell-style="{background:'#eef1f6',color:'#606266'}">
-            <el-table-column prop="id" label="序" width="100px"></el-table-column>
-            <el-table-column prop="productId" label="商品编号" width="200px"></el-table-column>
-            <el-table-column prop="productName" label="商品名称" width="200px"></el-table-column>
-            <el-table-column prop="productQuantity" label="数量" width="100px"></el-table-column>
-            <el-table-column prop="productRetailPrice" label="单价" width="100px"></el-table-column>
-            <el-table-column prop="singlePrice" label="总价" width="150px"></el-table-column>
-          </el-table>
-        </el-dialog>
       </el-main>
     </el-container>
   </el-container>
@@ -71,56 +61,18 @@
 
 <script>
 export default {
-  mounted: function() {
-    this.$axios.get("/account/sum").then(Response=> {
-      this.profitTable = Response.data.orders_list
-    })
-  },
-  name: 'Profit',
+  name: 'SaleInfo',
   data () {
-    const profit = {
-      index: '1',
-      orderId: '43532124',
-      orderTime: '2021-12-01 14:23',
-      orderCategory: '零售',
-      orderProfit: '123.01'
-    }
-    const orderDetail = {
-      index: '1',
-      ItemId: '123455',
-      ItemName: '面包',
-      ItemQuantity: '2',
-      ItemPrice: '3.00',
-      ItemTotalPrice: '6.00'
-    }
     return {
-      pageName: '收益信息',
+      pageName: '销售详情',
       bossName: this.$store.state.staff_name,
-      dateValue: '',
-      //profitTable: Array(15).fill(profit),
-      profitTable: [],
-      detailVisible: false,
-      //订单明细详情
-      //orderInfo: Array(15).fill(orderDetail),
-      orderInfo:[]
+      productNameInput: '',
+      customerNameInput: '',
+      saleInfo: []
     }
   },
-  methods:{
-    //查询
-    query(){
-      this.$axios.get('account/sum?startDate='+this.dateValue[0] + '&endDate=' + this.dateValue[1]).then(Response=>{
-        this.profitTable = Response.data.orders_list
-      })
-    },
-    //查看具体信息
-    check(){
-      this.axios.post('/retail/examine',{ordersId : this.$store.state.init_order_id}).then(Response => {
-        this.orderInfo = Response.data.orderItemList
-      }),
-      this.detailVisible = true
-    },
-    handle (row, column, cell, event) {
-      this.$store.commit('saveStaff_init_order_id',row['orderId'])
+  methods: {
+    query () {
     }
   }
 }
