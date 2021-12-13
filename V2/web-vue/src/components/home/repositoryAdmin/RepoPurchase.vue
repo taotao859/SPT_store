@@ -42,7 +42,7 @@
             <el-input-number v-model="productQuantity" @change="handleChange" :min="0" label="商品数量" style="width: 100%"></el-input-number>
           </el-col>
           <el-col :span="3">
-            <el-input v-model="productPrice" placeholder="进货价"></el-input>
+            <el-input v-model="productPrice" placeholder="进货价" type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '');"></el-input>
           </el-col>
           <el-col :span="4">
             <el-select v-model="repository" placeholder="仓库">
@@ -89,14 +89,6 @@ export default {
   //   })
   // },
   data () {
-    const purchaseItem = {
-      index: '1',
-      productId: '12345678',
-      productName: '香蕉',
-      quantity: '20',
-      price: '30.12',
-      operator: 'Joe'
-    }
     return {
       pageName: '进货',
       adminName: this.$store.state.staff_name,
@@ -109,16 +101,16 @@ export default {
           label: '门店'
         },
         {
-        value: '仓库1',
-        label: '仓库1'
+          value: '仓库1',
+          label: '仓库1'
         },
         {
-        value: '仓库2',
-        label: '仓库2'
+          value: '仓库2',
+          label: '仓库2'
         }
       ],
       repository: '',
-      //purchaseData: Array(20).fill(purchaseItem),
+      // purchaseData: Array(20).fill(purchaseItem),
       purchaseData: [],
       pickerOptions: {
         disabledDate (time) {
@@ -133,32 +125,32 @@ export default {
     handleChange (quantity) {
       console.log(quantity)
     },
-    submit(){
+    submit () {
       this.$alert('提交成功', '订单确认', {
         confirmButtonText: '确认',
         callback: action => {
         }
       })
     },
-    addItem(){
-      this.$axios.get('/repositorymanange/purchase?repositoryName='+this.repository+'&productName='+this.productName+'&productQuantity='+this.productQuantity+'&staffID='+this.$store.state.staff_id+'&productPrice='+this.productPrice)
-      .then(Response=>{
-        this.purchaseData = Response.data
+    addItem () {
+      this.$axios.get('/repositorymanange/purchase?repositoryName=' + this.repository + '&productName=' + this.productName + '&productQuantity=' + this.productQuantity + '&staffID=' + this.$store.state.staff_id + '&productPrice=' + this.productPrice)
+        .then(Response => {
+          this.purchaseData = Response.data
 
-        this.repository=''
-        this.productName=''
-        this.productQuantity=''
-        this.productPrice=''
-      })
-        this.$alert('提交成功', '订单确认', {
-          confirmButtonText: '确认',
-          callback: action => {
-          }
+          this.repository = ''
+          this.productName = ''
+          this.productQuantity = ''
+          this.productPrice = ''
         })
-    },
+      this.$alert('提交成功', '订单确认', {
+        confirmButtonText: '确认',
+        callback: action => {
+        }
+      })
+    }
   },
-  mounted: function() {
-    this.$axios.get("/repositorymanange/all").then(Response=> {
+  mounted: function () {
+    this.$axios.get('/repositorymanange/all').then(Response => {
       this.purchaseData = Response.data
     })
   }

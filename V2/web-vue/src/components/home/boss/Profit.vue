@@ -47,7 +47,7 @@
           </el-col>
         </el-row>
         <br><br>
-        <el-table :data="profitTable" height="600px" :header-cell-style="{background:'#eef1f6',color:'#606266'}"@cell-click="handle">
+        <el-table :data="profitTable" height="600px" :header-cell-style="{background:'#eef1f6',color:'#606266'}" @cell-click="handle">
           <el-table-column prop="index" label="序" width="96px"></el-table-column>
           <el-table-column prop="orderId" label="订单编号" width="300px"></el-table-column>
           <el-table-column prop="orderTime" label="订单时间" width="300px"></el-table-column>
@@ -71,56 +71,41 @@
 
 <script>
 export default {
-  mounted: function() {
-    this.$axios.get("/account/sum").then(Response=> {
+  mounted: function () {
+    this.$axios.get('/account/sum').then(Response => {
       this.profitTable = Response.data.orders_list
     })
   },
   name: 'Profit',
   data () {
-    const profit = {
-      index: '1',
-      orderId: '43532124',
-      orderTime: '2021-12-01 14:23',
-      orderCategory: '零售',
-      orderProfit: '123.01'
-    }
-    const orderDetail = {
-      index: '1',
-      ItemId: '123455',
-      ItemName: '面包',
-      ItemQuantity: '2',
-      ItemPrice: '3.00',
-      ItemTotalPrice: '6.00'
-    }
     return {
       pageName: '收益信息',
       bossName: this.$store.state.staff_name,
       dateValue: '',
-      //profitTable: Array(15).fill(profit),
+      // profitTable: Array(15).fill(profit),
       profitTable: [],
       detailVisible: false,
-      //订单明细详情
-      //orderInfo: Array(15).fill(orderDetail),
-      orderInfo:[]
+      // 订单明细详情
+      // orderInfo: Array(15).fill(orderDetail),
+      orderInfo: []
     }
   },
-  methods:{
-    //查询
-    query(){
-      this.$axios.get('account/sum?startDate='+this.dateValue[0] + '&endDate=' + this.dateValue[1]).then(Response=>{
+  methods: {
+    // 查询
+    query () {
+      this.$axios.get('account/sum?startDate=' + this.dateValue[0] + '&endDate=' + this.dateValue[1]).then(Response => {
         this.profitTable = Response.data.orders_list
       })
     },
-    //查看具体信息
-    check(){
-      this.axios.post('/retail/examine',{ordersId : this.$store.state.init_order_id}).then(Response => {
+    // 查看具体信息
+    check () {
+      this.axios.post('/retail/examine', {ordersId: this.$store.state.init_order_id}).then(Response => {
         this.orderInfo = Response.data.orderItemList
-      }),
+      })
       this.detailVisible = true
     },
-    handle (row, column, cell, event) {
-      this.$store.commit('saveStaff_init_order_id',row['orderId'])
+    handle (row) {
+      this.$store.commit('saveStaff_init_order_id', row['orderId'])
     }
   }
 }

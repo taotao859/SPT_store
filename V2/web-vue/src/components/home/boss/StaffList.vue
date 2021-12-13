@@ -38,7 +38,7 @@
       <el-main>
         <el-row :gutter="20">
           <el-col :span="4">
-            <el-input v-model="staffId" placeholder="员工编号"></el-input>
+            <el-input v-model="staffId" placeholder="员工编号" type="text" maxlength="4"></el-input>
           </el-col>
           <el-col :span="4">
             <el-input v-model="staffName" placeholder="员工姓名"></el-input>
@@ -81,12 +81,6 @@
 export default {
   name: 'StaffList',
   data () {
-    const staff = {
-      index: '1',
-      id: '1234',
-      name: 'Sandy',
-      title: '售货员'
-    }
     return {
       staffInfo: {
         staffId: '',
@@ -94,72 +88,71 @@ export default {
         staffTitle: '',
         staffContact: ''
       },
-      staffId:'',
+      staffId: '',
       staffName: '',
       staffTitle: '',
       pageName: '员工列表',
       bossName: this.$store.state.staff_name,
       infoVisible: false,
-      //staffList: Array(15).fill(staff),
-      staffList:[]
+      // staffList: Array(15).fill(staff),
+      staffList: []
     }
   },
-  mounted: function() {
-    this.$axios.get("/staff/all").then(Response=> {
+  mounted: function () {
+    this.$axios.get('/staff/all').then(Response => {
       this.staffList = Response.data
     })
   },
   methods: {
-    addItem(){
-      this.$axios.get('/staff/add?staffId='+this.staffId+'&staffName='+this.staffName+'&staffTitle='+this.staffTitle).then(Response=>{
-        if(Response.data.code === 200)
-        {
+    addItem () {
+      this.$axios.get('/staff/add?staffId=' + this.staffId + '&staffName=' + this.staffName + '&staffTitle=' + this.staffTitle).then(Response => {
+        if (Response.data.code === 200) {
           this.$message({
             message: '添加成功',
             type: 'success'
-          }),
-            this.$axios.get("/staff/all").then(Response=> {
-              this.staffList = Response.data
-            })
+          })
+          this.$axios.get('/staff/all').then(Response => {
+            this.staffList = Response.data
+          })
 
-          this.staffId=''
-          this.staffName=''
-          this.staffTitle=''
+          this.staffId = ''
+          this.staffName = ''
+          this.staffTitle = ''
         }
       })
     },
     fireStaff () {
-      this.$axios.post('/staff/delete',{staffId:this.$store.state.opStaff_id}).then(Response=>{
-        if(Response.data.code === 200)
-        {
+      this.$axios.post('/staff/delete', {staffId: this.$store.state.opStaff_id}).then(Response => {
+        if (Response.data.code === 200) {
+          // eslint-disable-next-line no-unused-expressions
           this.$message({
             message: '员工已被解雇',
             type: 'success'
-          }),
-            this.$axios.get("/staff/all").then(Response=> {
-              this.staffList = Response.data
-            })
+          })
+          this.$axios.get('/staff/all').then(Response => {
+            this.staffList = Response.data
+          })
         }
       })
     },
-    check(){
-      this.$axios.get('/staff/get?staffId=' + this.$store.state.opStaff_id).then(Response=>{
+    check () {
+      this.$axios.get('/staff/get?staffId=' + this.$store.state.opStaff_id).then(Response => {
         this.staffInfo = Response.data
       })
       this.infoVisible = true
     },
-    handle (row, column, cell, event) {
-      this.$store.commit('saveOpStaff_id',row['id'])
+    handle (row) {
+      this.$store.commit('saveOpStaff_id', row['id'])
     }
   }
 }
 </script>
 
 <style>
-.el-container {
+el-container {
   height: 100%;
 }
-.el-header {
+el-header {
   background-color: #75d9d9;
   color: black;
   font-size: large;

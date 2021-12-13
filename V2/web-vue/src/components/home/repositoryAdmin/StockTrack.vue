@@ -41,7 +41,7 @@
             </el-select>
           </el-col>
           <el-col :span="4">
-            <el-input v-model="productId" placeholder="商品编号"></el-input>
+            <el-input v-model="productId" placeholder="商品编号" type="text" oninput="this.value = this.value.replace(/[^0-9]/g, '');"></el-input>
           </el-col>
           <el-col :span="4">
             <el-input-number v-model="updateQuantity" @change="handleChange" :min="0" style="width: 100%"></el-input-number>
@@ -67,14 +67,6 @@
 export default {
   name: 'stockTrack',
   data () {
-    const checkDetail = {
-      index: '1',
-      productId: '1234432',
-      productName: '锤子',
-      originalQuantity: '1000',
-      updateQuantity: '1200',
-      diff: '+200'
-    }
     return {
       pageName: '库存盘点',
       adminName: this.$store.state.staff_name,
@@ -100,24 +92,24 @@ export default {
     handleChange (quantity) {
       console.log(quantity)
     },
-    add(){
-      this.$axios.get('/repositorymanange/update?repositoryName='+this.repository+'&productId='+this.productId+'&newQuantity='+this.updateQuantity)
-        .then(Response=>{
+    add () {
+      this.$axios.get('/repositorymanange/update?repositoryName=' + this.repository + '&productId=' + this.productId + '&newQuantity=' + this.updateQuantity)
+        .then(Response => {
           this.repoDataCheck = Response.data
 
-          this.repository=''
-          this.productId=''
-          this.updateQuantity=''
+          this.repository = ''
+          this.productId = ''
+          this.updateQuantity = ''
         })
       this.$alert('新增成功', '盘点确认', {
         confirmButtonText: '确认',
         callback: action => {
         }
       })
-    },
+    }
   },
-  mounted: function() {
-    this.$axios.get("/repositorymanange/allpandian").then(Response=> {
+  mounted: function () {
+    this.$axios.get('/repositorymanange/allpandian').then(Response => {
       this.repoDataCheck = Response.data
     })
   }

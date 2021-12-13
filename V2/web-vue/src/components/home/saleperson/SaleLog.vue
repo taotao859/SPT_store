@@ -30,7 +30,7 @@
       <el-main>
         <el-row :gutter="5">
           <el-col :span="5">
-            <el-input v-model="orderId" placeholder="请输入订单编号"></el-input>
+            <el-input v-model="orderId" placeholder="请输入订单编号" type="text" oninput="this.value = this.value.replace(/[^0-9]/g, '');"></el-input>
           </el-col>
           <el-col :span="3">
             <el-input v-model="operatorName" placeholder="执行者"></el-input>
@@ -103,42 +103,41 @@ export default {
       operatorName: '',
       // tableData: Array(20).fill(item),
       // orderInfo: Array(10).fill(orderInfo),
-      //订单列表
+      // 订单列表
       tableData: [],
-      //订单明细列表
+      // 订单明细列表
       orderInfo: [],
       dialogVisible: false
     }
   },
-  mounted: function() {
-    this.$axios.get('/retail/filter?ordersId='+this.orderId+'&staffName='+this.operatorName).then(Response=> {
+  mounted: function () {
+    this.$axios.get('/retail/filter?ordersId=' + this.orderId + '&staffName=' + this.operatorName).then(Response => {
       this.tableData = Response.data
     })
   },
   methods: {
-    //查询订单
+    // 查询订单
     search () {
-      this.axios.get('/retail/filter?ordersId='+this.orderId+'&staffName='+this.operatorName).then(Response => {
+      this.axios.get('/retail/filter?ordersId=' + this.orderId + '&staffName=' + this.operatorName).then(Response => {
         this.tableData = Response.data
       })
     },
-    //退货
+    // 退货
     refund () {
-      this.axios.get('/retail/refund?ordersId='+this.$store.state.init_order_id).then(Response => {
-        if (Response.data.code === 200)
-        {
+      this.axios.get('/retail/refund?ordersId=' + this.$store.state.init_order_id).then(Response => {
+        if (Response.data.code === 200) {
           this.$message({type: 'success', message: '退货成功'})
         }
       })
     },
     examine () {
-      this.axios.get('/wholesale/get?ordersId='+this.$store.state.init_order_id).then(Response => {
+      this.axios.get('/wholesale/get?ordersId=' + this.$store.state.init_order_id).then(Response => {
         this.orderInfo = Response.data
       })
       this.dialogVisible = true
     },
     handle (row, column, cell, event) {
-      this.$store.commit('saveStaff_init_order_id',row['wholeSaleOrderId'])
+      this.$store.commit('saveStaff_init_order_id', row['wholeSaleOrderId'])
     }
   }
 }

@@ -30,7 +30,7 @@
       <el-main>
         <el-row :gutter="5">
           <el-col :span="5">
-            <el-input v-model="orderId" placeholder="请输入订单编号"></el-input>
+            <el-input v-model="orderId" placeholder="请输入订单编号" type="text" oninput="this.value = this.value.replace(/[^0-9]/g, '');"></el-input>
           </el-col>
           <el-col :span="3">
             <el-input v-model="operatorName" placeholder="执行者"></el-input>
@@ -120,8 +120,6 @@
 </template>
 
 <script>
-import currentItem from 'autoprefixer'
-
 export default {
   name: 'WholeSaleOrderInfo',
   data () {
@@ -133,21 +131,21 @@ export default {
     //     wholeSaleOrderState: '15'
     // }
     return {
-      payStatistical : {
+      payStatistical: {
         time: '',
         totalPrice: '',
         payMoney: '',
         restMoney: '',
         operator: ''
       },
-      item : {
+      item: {
         index: '1',
         wholeSaleOrderId: '1',
         wholeSaleOrderDate: '1',
         wholeSaleOrderOperator: '1',
         wholeSaleOrderState: '1'
       },
-      orderItem : {
+      orderItem: {
         index: '2',
         ItemId: '',
         ItemName: '',
@@ -155,7 +153,7 @@ export default {
         ItemPrice: '',
         ItemTotalPrice: ''
       },
-      itemList : [
+      itemList: [
         // {
         //   index: '1',
         //   wholeSaleOrderId: '1',
@@ -170,12 +168,12 @@ export default {
         //   wholeSaleOrderOperator: '1',
         //   wholeSaleOrderState: '1'
         // }
-      ],  //订单列表
-      orderItemList : [], //订单详情列表
-      payStatisticalList : {
-        ordersPaidAmount : '',
-        ordersUnpaidAmount : ''
-      }, //支付详情
+      ], // 订单列表
+      orderItemList: [], // 订单详情列表
+      payStatisticalList: {
+        ordersPaidAmount: '',
+        ordersUnpaidAmount: ''
+      }, // 支付详情
       salesName: this.$store.state.staff_name,
       date: '',
       money: '',
@@ -187,55 +185,53 @@ export default {
       // tableData: Array(20).fill(this.item),
       // orderInfo: Array().fill(this.orderItem),
       // payInfo: Array().fill(this.payStatistical),
-      //订单列表
+      // 订单列表
       tableData: [],
-      //订单详情列表
+      // 订单详情列表
       orderInfo: []
     }
   },
-  mounted: function() {
-    this.$axios.get("/wholesale/filter").then(Response=> {
+  mounted: function () {
+    this.$axios.get('/wholesale/filter').then(Response => {
       this.tableData = Response.data
     })
   },
   methods: {
-    //查询方法，传入为ID和执行者，都为可选项，如果为空展示所有订单
+    // 查询方法，传入为ID和执行者，都为可选项，如果为空展示所有订单
     search () {
-      this.axios.get('/wholesale/filter?ordersId='+this.orderId+'&staffName='+this.operatorName).then(Response =>{
+      this.axios.get('/wholesale/filter?ordersId=' + this.orderId + '&staffName=' + this.operatorName).then(Response => {
         this.tableData = Response.data
 
-        this.orderId=''
-        this.operatorName=''
+        this.orderId = ''
+        this.operatorName = ''
       })
     },
-    //返回收款明细
+    // 返回收款明细
     pay () {
-      this.axios.get('/wholesale/pay?ordersId='+this.$store.state.init_order_id+'&paidMoney='+this.money).then(Response =>{
+      this.axios.get('/wholesale/pay?ordersId=' + this.$store.state.init_order_id + '&paidMoney=' + this.money).then(Response => {
         // this.payInfo.ordersPaidAmount = Response.data.ordersPaidAmount
         // this.payInfo.ordersUnpaidAmount = Response.data.ordersUnpaidAmount
         this.payStatisticalList = Response.data
       })
     },
-    //查看订单明细方法
+    // 查看订单明细方法
     examine () {
       this.detailVisible = true
-      this.$axios.get('/wholesale/get?ordersId='+this.$store.state.init_order_id).then(Response => {
+      this.$axios.get('/wholesale/get?ordersId=' + this.$store.state.init_order_id).then(Response => {
         this.orderInfo = Response.data
       })
     },
-    //订单审核 传入的订单ID怎么获得还有待商榷，这里暂时先以输入查询的作为目标
-    check(){
-      this.axios.post('/wholesale/check',{ordersId: this.$store.state.init_order_id}).then(Response => {
-        if (Response.code === 200)
-        {
+    // 订单审核 传入的订单ID怎么获得还有待商榷，这里暂时先以输入查询的作为目标
+    check () {
+      this.axios.post('/wholesale/check', {ordersId: this.$store.state.init_order_id}).then(Response => {
+        if (Response.code === 200) {
           this.$alert('审核通过', '审核确认', {
             confirmButtonText: '确认',
             callback: action => {
             }
           })
         }
-        if (Response.code === 400)
-        {
+        if (Response.code === 400) {
           this.$alert('审核未通过', '审核确认', {
             confirmButtonText: '确认',
             callback: action => {
@@ -252,7 +248,7 @@ export default {
         .catch(_ => {})
     },
     handle (row, column, cell, event) {
-      this.$store.commit('saveStaff_init_order_id',row['wholeSaleOrderId'])
+      this.$store.commit('saveStaff_init_order_id', row['wholeSaleOrderId'])
     }
   }
 }

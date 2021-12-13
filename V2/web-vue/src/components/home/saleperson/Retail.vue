@@ -42,10 +42,10 @@
         <br><br>
         <el-row :gutter="20">
           <el-col :span="6" :offset="1" style="text-align: left">
-            <el-input v-model="input" style="width: 350px" placeholder="请输入商品编号"></el-input>
+            <el-input v-model="input" style="width: 350px" placeholder="请输入商品编号" type="text" oninput="this.value = this.value.replace(/[^0-9]/g, '');"></el-input>
           </el-col>
           <el-col :span="2">
-            <el-input v-model="itemQuantity" style="width:100px" placeholder="数量"></el-input>
+            <el-input v-model="itemQuantity" style="width:100px" placeholder="数量" type="text" oninput="this.value = this.value.replace(/[^0-9]/g, '');"></el-input>
           </el-col>
           <el-col :span="2">
             <el-button @click="addItem" style="width: 100px">添加</el-button>
@@ -64,14 +64,13 @@
 
 <script>
 
-
 export default {
 
   name: 'Retail',
   data () {
     return {
-      Orders : {
-        ordersId: this.$store.state.init_order_id,
+      Orders: {
+        ordersId: this.$store.state.init_order_id
       },
       list: [],
       pageName: '零售',
@@ -84,14 +83,14 @@ export default {
   },
   methods: {
     addItem () {
-      this.$axios.get('/retail/add?productId='+this.input+'&productQuantity='+this.itemQuantity+'&ordersId='+this.$store.state.init_order_id)
-       .then(Response =>{
-     // addOrderitem(this.input,this.itemQuantity,this.$store.state.init_order_id).then(successResponse =>{
-        this.wholePrice = Response.data.ordersTotalPrice
-         this.tableData = Response.data.orderitemViewList
+      this.$axios.get('/retail/add?productId=' + this.input + '&productQuantity=' + this.itemQuantity + '&ordersId=' + this.$store.state.init_order_id)
+        .then(Response => {
+          // addOrderitem(this.input,this.itemQuantity,this.$store.state.init_order_id).then(successResponse =>{
+          this.wholePrice = Response.data.ordersTotalPrice
+          this.tableData = Response.data.orderitemViewList
 
-        this.input=''
-         this.itemQuantity=''
+          this.input = ''
+          this.itemQuantity = ''
         //  for temp in Response.data.orderitemviewList
         // this.list.id = Response.data.orderitemviewList.id
         //  this.list.productId = Response.data.orderitemviewList.productId
@@ -99,23 +98,22 @@ export default {
         //  this.list.productQuantity = Response.data.orderitemviewList.productQuantity
         //  this.list.productRetailPrice = Response.data.orderitemviewList.productRetailPrice
         //  this.list.singleprice = Response.data.orderitemviewList.singlePrice
-      })
+        })
       this.$alert('添加成功', '添加确认', {
         confirmButtonText: '确认',
         callback: action => {
         }
       })
     },
-    deleteItem() {
-      this.$axios.get('/retail/delete?productId='+this.input+'&productQuantity='+this.itemQuantity+'&ordersId='+this.$store.state.init_order_id)
-        .then(Response =>{
+    deleteItem () {
+      this.$axios.get('/retail/delete?productId=' + this.input + '&productQuantity=' + this.itemQuantity + '&ordersId=' + this.$store.state.init_order_id)
+        .then(Response => {
           this.wholePrice = Response.data.ordersTotalPrice
           this.tableData = Response.data.orderitemViewList
 
-          this.input=''
-          this.itemQuantity=''
-
-      })
+          this.input = ''
+          this.itemQuantity = ''
+        })
       this.$alert('删除成功', '删除确认', {
         confirmButtonText: '确认',
         callback: action => {
@@ -123,19 +121,19 @@ export default {
       })
     },
     check () {
-      this.$axios.post('/retail/pay' ,{ordersId: this.$store.state.init_order_id}).then(
+      this.$axios.post('/retail/pay', {ordersId: this.$store.state.init_order_id}).then(
 
-      this.$alert('收款成功', '收款确认', {
-        confirmButtonText: '确认',
-        callback: action => {
-        }
+        this.$alert('收款成功', '收款确认', {
+          confirmButtonText: '确认',
+          callback: action => {
+          }
 
-      }),
+        }),
         this.tableData = null,
-        this.wholePrice=0
+        this.wholePrice = 0
       )
       this.$axios.get('/retail/init?staffId=' + this.$store.state.staff_id + '&repositoryId=1').then(response => {
-        this.$store.commit('saveStaff_init_order_id',response.data.ordersId)
+        this.$store.commit('saveStaff_init_order_id', response.data.ordersId)
       })
     }
   }
@@ -198,4 +196,3 @@ export default {
   border-radius: 5px;
 }
 </style>
-
