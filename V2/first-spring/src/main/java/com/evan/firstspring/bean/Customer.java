@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.annotation.*;
 
 
 public class Customer {
-    @TableId
+    @TableId(type = IdType.AUTO)
     private String customerId;
 
     private String customerPassword;

@@ -45,6 +45,9 @@
           <el-col :span="2">
             <el-button @click="query">查询</el-button>
           </el-col>
+          <el-col :span="2" style="text-align: right">
+            <el-button @click="moneyquery">收支详情</el-button>
+          </el-col>
         </el-row>
         <br><br>
         <el-table :data="profitTable" height="600px" :header-cell-style="{background:'#eef1f6',color:'#606266'}" @cell-click="handle">
@@ -64,6 +67,38 @@
             <el-table-column prop="singlePrice" label="总价" width="150px"></el-table-column>
           </el-table>
         </el-dialog>
+        <el-dialog title="收支详细信息" :visible.sync="MoneyInfoVisual" width="40%">
+          <div style="line-height: 40px; font-size: 20px">
+            <el-row :gutter="20">
+              <el-col :span="12" style="text-align: right">
+                <span>支出:</span>
+              </el-col>
+              <el-col :span="12" style="text-align: left">
+                <span v-text="MoneyInfo.cost"></span>
+              </el-col>
+            </el-row>
+          </div>
+          <div style="line-height: 40px; font-size: 20px">
+            <el-row :gutter="20">
+              <el-col :span="12" style="text-align: right">
+                <span>零售收入:</span>
+              </el-col>
+              <el-col :span="12" style="text-align: left">
+                <span v-text="MoneyInfo.retailIn"></span>
+              </el-col>
+            </el-row>
+          </div>
+          <div style="line-height: 40px; font-size: 20px">
+            <el-row :gutter="20">
+              <el-col :span="12" style="text-align: right">
+                <span>批发收入:</span>
+              </el-col>
+              <el-col :span="12" style="text-align: left">
+                <span v-text="MoneyInfo.wholeSaleIn"></span>
+              </el-col>
+            </el-row>
+          </div>
+        </el-dialog>
       </el-main>
     </el-container>
   </el-container>
@@ -74,6 +109,9 @@ export default {
   mounted: function () {
     this.$axios.get('/account/sum').then(Response => {
       this.profitTable = Response.data.orders_list
+      this.MoneyInfo.retailIn = Response.data.retail_in
+      this.MoneyInfo.wholeSaleIn = Response.data.wholesale_in
+      this.MoneyInfo.cost = Response.data.cost_in
     })
   },
   name: 'Profit',
@@ -87,7 +125,14 @@ export default {
       detailVisible: false,
       // 订单明细详情
       // orderInfo: Array(15).fill(orderDetail),
-      orderInfo: []
+      orderInfo: [],
+      // 下面是进一步的员工信息展示
+      MoneyInfoVisual: false,
+      MoneyInfo: {
+        retailIn: '',
+        wholeSaleIn: '',
+        cost: ''
+      }
     }
   },
   methods: {
@@ -95,6 +140,9 @@ export default {
     query () {
       this.$axios.get('account/sum?startDate=' + this.dateValue[0] + '&endDate=' + this.dateValue[1]).then(Response => {
         this.profitTable = Response.data.orders_list
+        this.MoneyInfo.retailIn = Response.data.retail_in
+        this.MoneyInfo.wholeSaleIn = Response.data.wholesale_in
+        this.MoneyInfo.cost = Response.data.cost_in
       })
     },
     // 查看具体信息
@@ -106,7 +154,11 @@ export default {
     },
     handle (row) {
       this.$store.commit('saveStaff_init_order_id', row['orderId'])
-    }
+    },
+    // 查看收入详情
+    moneyquery () {
+      this.MoneyInfoVisual = true
+    },
   }
 }
 </script>

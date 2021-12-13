@@ -212,7 +212,7 @@ public class RepositoryManagerController {
      * @return
      */
     @GetMapping("searchinventory")
-    public List<InventoryView> searchInventory(@RequestParam(required = false) String repositoryName, @RequestParam(required = false) String productName) {
+    public Map<String,Object> searchInventory(@RequestParam(required = false) String repositoryName, @RequestParam(required = false) String productName) {
         QueryWrapper<Inventory> inventoryQueryWrapper = new QueryWrapper<>();
 
         // 仓库名
@@ -239,7 +239,17 @@ public class RepositoryManagerController {
             inventoryQueryWrapper.eq("inventory_product_id", productId);
         }
 
-        return InventoryView.getInventoryView(inventoryMapper.selectList(inventoryQueryWrapper),productMapper,repositoryMapper);
+        Map<String,Object>map=new HashMap<>();
+        List<InventoryView> inventoryViewList=InventoryView.getInventoryView(inventoryMapper.selectList(inventoryQueryWrapper),productMapper,repositoryMapper,inventoryMapper);
+        map.put("inventoryView",inventoryViewList);
+
+        BigDecimal stockMoney=BigDecimal.valueOf(0);
+        for(InventoryView inventoryView:inventoryViewList){
+            stockMoney=stockMoney.add(inventoryView.getProductStockMoney());
+        }
+        map.put("stockMoney",stockMoney);
+
+        return map;
     }
 
     /**

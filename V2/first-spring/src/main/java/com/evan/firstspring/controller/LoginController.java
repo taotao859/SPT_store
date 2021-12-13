@@ -70,11 +70,12 @@ public class LoginController {
     }
 
     // 生成验证码
-    @GetMapping("/getVertifyCodeImage")
+    @GetMapping("/getVerifyCodeImage")
     public String getImageCode(HttpServletRequest request) throws IOException{
         // 1. 使用工具类生成验证码
         String code = VertifyCodeUtils.generateVerifyCode(4);
         validate_code = code; // 存放生成的验证码
+        System.out.println("validate_code: " + validate_code);
         // 2. 将验证码放入ServletContext作用域
         request.getServletContext().setAttribute("code", code);
         // 3. 将图片转换成base64格式

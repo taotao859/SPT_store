@@ -3,7 +3,7 @@ package com.evan.firstspring.bean;
 import com.baomidou.mybatisplus.annotation.*;
 
 public class Staff {
-    @TableId
+    @TableId(type = IdType.AUTO)
     private String staffId;
     private String staffPassword;
     private String staffName;

@@ -1,11 +1,14 @@
 package com.evan.firstspring.view;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.evan.firstspring.bean.Inventory;
 import com.evan.firstspring.bean.Product;
 import com.evan.firstspring.bean.Repository;
+import com.evan.firstspring.mapper.InventoryMapper;
 import com.evan.firstspring.mapper.ProductMapper;
 import com.evan.firstspring.mapper.RepositoryMapper;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,23 +18,33 @@ public class InventoryView {
     private String productName;
     private int quantity;
     private String repository;
+    private BigDecimal productStockMoney;
 
-    public static List<InventoryView> getInventoryView(List<Inventory> inventoryList, ProductMapper productMapper, RepositoryMapper repositoryMapper){
+    public static List<InventoryView> getInventoryView(List<Inventory> inventoryList, ProductMapper productMapper, RepositoryMapper repositoryMapper, InventoryMapper inventoryMapper){
         List<InventoryView> inventoryViewList=new ArrayList<>();
         for (int i=0;i<inventoryList.size();i++){
             Inventory inventory=inventoryList.get(i);
             Product product=productMapper.selectById(inventory.getInventoryProductId());
-            inventoryViewList.add(new InventoryView(i,product.getProductId(),product.getProductName(),inventory.getInventoryQuantity(),repositoryMapper.selectById(inventory.getInventoryRepositoryId()).getRepositoryName()));
+            inventoryViewList.add(new InventoryView(i,product.getProductId(),product.getProductName(),inventory.getInventoryQuantity(),repositoryMapper.selectById(inventory.getInventoryRepositoryId()).getRepositoryName(),product.getProductCost().multiply(BigDecimal.valueOf(inventory.getInventoryQuantity()))));
         }
         return inventoryViewList;
     }
 
-    public InventoryView(int index, int productId, String productName, int quantity, String repository) {
+    public InventoryView(int index, int productId, String productName, int quantity, String repository,BigDecimal productStockMoney) {
         this.index = index;
         this.productId = productId;
         this.productName = productName;
         this.quantity = quantity;
         this.repository = repository;
+        this.productStockMoney = productStockMoney;
+    }
+
+    public BigDecimal getProductStockMoney() {
+        return productStockMoney;
+    }
+
+    public void setProductStockMoney(BigDecimal productStockMoney) {
+        this.productStockMoney = productStockMoney;
     }
 
     public int getIndex() {

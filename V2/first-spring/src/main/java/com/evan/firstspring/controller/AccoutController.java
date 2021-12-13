@@ -33,7 +33,7 @@ public class AccoutController {
     @GetMapping("sum")
     public Map<String, Object> calculateSum(@RequestParam(required = false) String startDate, @RequestParam(required = false) String endDate) throws ParseException {
         QueryWrapper<Account> accountQueryWrapper = new QueryWrapper<>();
-        if (startDate != null){
+        if (startDate != null && !startDate.equals("undefined")){
             startDate = startDate.replace("Jan", "01");
             startDate = startDate.replace("Feb", "02");
             startDate = startDate.replace("Mar", "03");
@@ -60,7 +60,7 @@ public class AccoutController {
             System.out.println(startTime);
             accountQueryWrapper.apply("UNIX_TIMESTAMP(account_time) >= UNIX_TIMESTAMP('" + startTime + "')");
         }
-        if(endDate != null) {
+        if(endDate != null && !endDate.equals("undefined")) {
             endDate = endDate.replace("Jan", "01");
             endDate = endDate.replace("Feb", "02");
             endDate = endDate.replace("Mar", "03");

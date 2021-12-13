@@ -46,6 +46,9 @@
           <el-col :span="2">
             <el-button @click="query">查询</el-button>
           </el-col>
+          <el-col :span="11" style="text-align: end; line-height: 40px; font-size: 20px">
+            客户已结款：<span v-text="payMoney"></span>
+          </el-col>
         </el-row>
         <br><br>
         <el-table :data="saleInfo" height="600px" :header-cell-style="{background:'#eef1f6',color:'#606266'}">
@@ -70,11 +73,22 @@ export default {
       bossName: this.$store.state.staff_name,
       productNameInput: '',
       customerNameInput: '',
+      payMoney: '',
       saleInfo: []
     }
   },
+  mounted: function () {
+    this.$axios.get('/orderitem/filter').then(Response => {
+      this.saleInfo = Response.data.list
+      this.payMoney = Response.data.account
+    })
+  },
   methods: {
     query () {
+      this.$axios.get('orderitem/filter?productName=' + this.productNameInput + '&customerName=' + this.customerNameInput).then(Response => {
+        this.saleInfo = Response.data.list
+        this.payMoney = Response.data.account
+      })
     }
   }
 }

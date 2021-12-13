@@ -46,7 +46,7 @@
           <el-col :span="4" style="text-align: left">
             <el-button @click="check">查询</el-button>
           </el-col>
-          <el-col :span="11" style="text-align: right; line-height: 40px; font-size: 20px">
+          <el-col :span="11" style="text-align: end; line-height: 40px; font-size: 20px">
             积压总金额：<span v-text="stockMoney"></span>
           </el-col>
         </el-row>
@@ -91,13 +91,15 @@ export default {
   },
   mounted: function () {
     this.$axios.get('/repositorymanange/searchinventory?repositoryName=&productName=').then(Response => {
-      this.stockData = Response.data
+      this.stockData = Response.data.inventoryView
+      this.stockMoney = Response.data.stockMoney
     })
   },
   methods: {
     check () {
       this.$axios.get('/repositorymanange/searchinventory?repositoryName=' + this.repositorySelect + '&productName=' + this.productNameInput).then(Response => {
-        this.stockData = Response.data
+        this.stockData = Response.data.inventoryView
+        this.stockMoney = Response.data.stockMoney
 
         this.repositorySelect = ''
         this.productNameInput = ''
