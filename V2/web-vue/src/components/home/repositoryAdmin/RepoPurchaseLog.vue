@@ -76,20 +76,6 @@
 export default {
   name: 'repoPurchaseLog',
   data () {
-    const purchaseOrder = {
-      index: '1',
-      purchaseId: '12345678',
-      purchaseDate: '2021-12-3',
-      repoNo: '2',
-      operator: 'Edmund'
-    }
-    const purchaseDetail = {
-      index: '1',
-      productId: '1234543',
-      productName: '笔记本',
-      quantity: '2000',
-      price: '23.00'
-    }
     return {
       pageName: '进货记录',
       adminName: this.$store.state.staff_name,
@@ -120,29 +106,29 @@ export default {
       }],
       repostaff: '',
       productName: '',
-     // purchaseDataLog: Array(10).fill(purchaseOrder),
+      // purchaseDataLog: Array(10).fill(purchaseOrder),
       purchaseDetailVisible: false,
-      purchaseDataLog:[]
-      //purchaseData: Array(15).fill(purchaseDetail)
+      purchaseDataLog: []
+      // purchaseData: Array(15).fill(purchaseDetail)
     }
   },
-  mounted: function() {
-    this.$axios.get("/repositorymanange/all").then(Response=> {
+  mounted: function () {
+    this.$axios.get('/repositorymanange/all').then(Response => {
       this.purchaseDataLog = Response.data
     })
   },
   methods: {
-    //查询
-    enquery(){
-      this.$axios.get('/repositorymanange/searchpurchase?repositoryName='+this.repository+'&productName='+this.productName).then(Response=>{
+    // 查询
+    enquery () {
+      this.$axios.get('/repositorymanange/searchpurchase?repositoryName=' + this.repository + '&productName=' + this.productName).then(Response => {
         this.purchaseDataLog = Response.data
 
-        this.repository=''
-        this.productName=''
+        this.repository = ''
+        this.productName = ''
       })
     },
     handle (row, column, cell, event) {
-      this.$store.commit('savePurchaseOrder_id',row['purchaseId'])
+      this.$store.commit('savePurchaseOrder_id', row['purchaseId'])
     }
   }
 }

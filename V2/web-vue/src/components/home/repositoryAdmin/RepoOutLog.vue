@@ -64,19 +64,6 @@
 export default {
   name: 'RepoOutLog',
   data () {
-    const repoOut = {
-      index: '1',
-      orderId: '12345',
-      orderTime: '2021-11-12',
-      repoNo: '1',
-      operator: 'Joe'
-    }
-    const detail = {
-      index: '1',
-      productId: '123',
-      productName: '显示器',
-      quantity: '12'
-    }
     return {
       pageName: '出库记录',
       adminName: this.$store.state.staff_name,
@@ -92,29 +79,29 @@ export default {
       }],
       repositorySelect: '',
       productNameInput: '',
-      //repoOutData: Array(15).fill(repoOut),
-      repoOutData:[],
+      // repoOutData: Array(15).fill(repoOut),
+      repoOutData: [],
       orderDetailVisible: false,
-      //orderDetail: Array(10).fill(detail)
-      orderDetail:[]
+      // orderDetail: Array(10).fill(detail)
+      orderDetail: []
     }
   },
-  methods:{
-    handle (row, column, cell, event) {
-      this.$store.commit('saveStaff_init_order_id',row['orderId'])
+  methods: {
+    handle (row) {
+      this.$store.commit('saveStaff_init_order_id', row['orderId'])
     },
-    //查询某一订单
-    enquery(){
-      this.axios.get('/repositorymanange/searchrecord?repositoryName='+this.repositorySelect+'&productName='+this.productNameInput).then(Response => {
+    // 查询某一订单
+    enquery () {
+      this.axios.get('/repositorymanange/searchrecord?repositoryName=' + this.repositorySelect + '&productName=' + this.productNameInput).then(Response => {
         this.repoOutData = Response.data
 
-        this.repositorySelect=''
-        this.productNameInput=''
+        this.repositorySelect = ''
+        this.productNameInput = ''
       })
     },
-    //查看出库订单明细详情
-    check(){
-      this.$axios.post('/examine',{order: this.$store.state.init_order_id}).then(Response=>{
+    // 查看出库订单明细详情
+    check () {
+      this.$axios.post('/examine', {order: this.$store.state.init_order_id}).then(Response => {
         this.orderDetail = Response.data
       })
       this.orderDetailVisible = true

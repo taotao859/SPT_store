@@ -38,20 +38,18 @@ export default {
   methods: {
     init_retail () {
       this.$axios.get('/retail/init?staffId=' + this.$store.state.staff_id + '&repositoryId=1').then(response => {
-        this.$store.commit('saveStaff_init_order_id',response.data.ordersId)
+        this.$store.commit('saveStaff_init_order_id', response.data.ordersId)
         this.$router.replace({path: '/retail'})
       })
-
     },
     handleSelect2 (key, keyPath) {
       console.log(key, keyPath)
     },
     init_wholeSaleOrder () {
       this.$axios.get('/wholesale/init?staffId=' + this.$store.state.staff_id + '&repositoryId=1').then(response => {
-        this.$store.commit('saveStaff_init_order_id',response.data.ordersId)
+        this.$store.commit('saveStaff_init_order_id', response.data.ordersId)
       })
-
-    },
+    }
   }
 }
 </script>

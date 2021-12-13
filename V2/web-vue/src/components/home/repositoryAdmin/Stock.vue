@@ -69,13 +69,6 @@ export default {
 
   name: 'Stock',
   data () {
-    const product = {
-      index: '1',
-      productId: '123456',
-      productName: '台灯',
-      quantity: '1000',
-      repository: '1'
-    }
     return {
       pageName: '库存查询',
       adminName: this.$store.state.staff_name,
@@ -91,23 +84,23 @@ export default {
         label: '仓库2'
       }],
       repositorySelect: '',
-      //stockData: Array(15).fill(product),
-      stockData:[],
+      // stockData: Array(15).fill(product),
+      stockData: [],
       stockMoney: ''
     }
   },
-  mounted: function() {
-    this.$axios.get("/repositorymanange/searchinventory?repositoryName=&productName=").then(Response=> {
+  mounted: function () {
+    this.$axios.get('/repositorymanange/searchinventory?repositoryName=&productName=').then(Response => {
       this.stockData = Response.data
-   })
+    })
   },
-  methods:{
-    check(){
-      this.$axios.get('/repositorymanange/searchinventory?repositoryName=' + this.repositorySelect+'&productName=' + this.productNameInput).then(Response=>{
+  methods: {
+    check () {
+      this.$axios.get('/repositorymanange/searchinventory?repositoryName=' + this.repositorySelect + '&productName=' + this.productNameInput).then(Response => {
         this.stockData = Response.data
 
-        this.repositorySelect=''
-        this.productNameInput=''
+        this.repositorySelect = ''
+        this.productNameInput = ''
       })
     }
   }

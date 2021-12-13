@@ -52,22 +52,15 @@ export default {
 
   name: 'AfterSale',
   data () {
-    const afterSaleDetail = {
-      index: '1',
-      orderId: '123432',
-      orderTime: '2021-12-4',
-      operator: 'Joe'
-    }
     return {
       pageName: '售后服务',
       salesName: this.$store.state.staff_name,
-      //afterSaleTable: Array(15).fill(afterSaleDetail)
-      afterSaleTable:[]
+      // afterSaleTable: Array(15).fill(afterSaleDetail)
+      afterSaleTable: []
     }
-
   },
-  mounted: function() {
-    this.$axios.get("/aftersale/all").then(Response=> {
+  mounted: function () {
+    this.$axios.get('/aftersale/all').then(Response => {
       this.afterSaleTable = Response.data
     })
   }

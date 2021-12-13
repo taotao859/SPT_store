@@ -83,13 +83,6 @@
 export default {
   name: 'GoodsTransfer',
   data () {
-    const product = {
-      index: '1',
-      productId: '1234567876',
-      productName: '手机',
-      quantity: '1000',
-      repository: '仓库2'
-    }
     return {
       pageName: '商品调货',
       adminName: this.$store.state.staff_name,
@@ -109,43 +102,42 @@ export default {
       repoTransfer: '',
       transferQuantity: '',
       goodsTransferVisible: false,
-      //productData: Array(20).fill(product),
-      productData:[]
+      // productData: Array(20).fill(product),
+      productData: []
     }
   },
   methods: {
     handleChange (quantity) {
       console.log(quantity)
     },
-    enquery(){
-      this.$axios.get('/repositorymanange/searchinventory?productName=' + this.productName).then(Response=>{
+    enquery () {
+      this.$axios.get('/repositorymanange/searchinventory?productName=' + this.productName).then(Response => {
         this.productData = Response.data
 
-        this.productName=''
+        this.productName = ''
       })
     },
-    tuning(){
-      this.$axios.get('/repositorymanange/tuning?srcRepositoryName='+this.srcRepository+'&dstRepositoryName='+this.destRepository
-      +'&productName='+this.$store.state.product_name+'&productQuantity='+this.transferQuantity).then(Response=>{
-        if(Response.data.code === 200)
-        {
+    tuning () {
+      this.$axios.get('/repositorymanange/tuning?srcRepositoryName=' + this.srcRepository + '&dstRepositoryName=' + this.destRepository +
+      '&productName=' + this.$store.state.product_name + '&productQuantity=' + this.transferQuantity).then(Response => {
+        if (Response.data.code === 200) {
           this.$message({
             message: '调货成功',
             type: 'success'
-          }),
-            this.$axios.get("/repositorymanange/searchinventory").then(Response=> {
-              this.productData = Response.data
-            })
+          })
+          this.$axios.get('/repositorymanange/searchinventory').then(Response => {
+            this.productData = Response.data
+          })
         }
       })
       this.goodsTransferVisible = false
     },
-    handle (row, column, cell, event) {
-      this.$store.commit('saveProduct_name',row['productName'])
-    },
+    handle (row) {
+      this.$store.commit('saveProduct_name', row['productName'])
+    }
   },
-  mounted: function() {
-    this.$axios.get("/repositorymanange/searchinventory").then(Response=> {
+  mounted: function () {
+    this.$axios.get('/repositorymanange/searchinventory').then(Response => {
       this.productData = Response.data
     })
   }

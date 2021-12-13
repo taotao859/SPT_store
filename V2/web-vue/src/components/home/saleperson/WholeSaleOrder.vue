@@ -56,13 +56,13 @@
         <br><br>
         <el-row :gutter="20">
           <el-col :span="5">
-            <el-input v-model="input" placeholder="请输入商品编号"></el-input>
+            <el-input v-model="input" placeholder="请输入商品编号" type="text" oninput="this.value = this.value.replace(/[^0-9]/g, '');"></el-input>
           </el-col>
           <el-col :span="2">
-            <el-input v-model="itemQuantity" placeholder="数量"></el-input>
+            <el-input v-model="itemQuantity" placeholder="数量" type="text" oninput="this.value = this.value.replace(/[^0-9]/g, '');"></el-input>
           </el-col>
           <el-col :span="3">
-            <el-input v-model="itemPrice" placeholder="批发价"></el-input>
+            <el-input v-model="itemPrice" placeholder="批发价" type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '');"></el-input>
           </el-col>
           <el-col :span="2">
             <el-button @click="addItem">添加</el-button>
@@ -87,8 +87,8 @@ export default {
   name: 'WholeSaleOrder',
   data () {
     return {
-      Orders : {
-        ordersId: this.$store.state.init_order_id,
+      Orders: {
+        ordersId: this.$store.state.init_order_id
       },
       salesName: this.$store.state.staff_name,
       tableData: [],
@@ -96,19 +96,19 @@ export default {
       itemQuantity: '',
       salesNumber: '',
       wholePrice: '',
-      itemPrice: '',//批发价
+      itemPrice: ''// 批发价
     }
   },
   methods: {
     addItem () {
-      this.$axios.get('/wholesale/add?productId='+ this.input+'&productQuantity='+this.itemQuantity+'&productPrice='+this.itemPrice+'&ordersId='+this.$store.state.init_order_id)
-        .then(Response =>{
+      this.$axios.get('/wholesale/add?productId=' + this.input + '&productQuantity=' + this.itemQuantity + '&productPrice=' + this.itemPrice + '&ordersId=' + this.$store.state.init_order_id)
+        .then(Response => {
           this.wholePrice = Response.data.ordersTotalPrice
           this.tableData = Response.data.orderitemViewList
 
-          this.input=''
-          this.itemQuantity=''
-          this.itemPrice=''
+          this.input = ''
+          this.itemQuantity = ''
+          this.itemPrice = ''
         })
       this.$alert('添加成功', '添加确认', {
         confirmButtonText: '确认',
@@ -117,15 +117,15 @@ export default {
       })
     },
     deleteItem () {
-      this.$axios.get('/wholesale/delete?productId=' + this.input + '&productQuantity='  + this.itemQuantity + '&productPrice='+this.itemPrice+'&ordersId='+this.$store.state.init_order_id)
-      .then(Response =>{
-        this.wholePrice = Response.data.ordersTotalPrice
-        this.tableData = Response.data.orderitemViewList
+      this.$axios.get('/wholesale/delete?productId=' + this.input + '&productQuantity=' + this.itemQuantity + '&productPrice=' + this.itemPrice + '&ordersId=' + this.$store.state.init_order_id)
+        .then(Response => {
+          this.wholePrice = Response.data.ordersTotalPrice
+          this.tableData = Response.data.orderitemViewList
 
-        this.input=''
-        this.itemQuantity=''
-        this.itemPrice=''
-      })
+          this.input = ''
+          this.itemQuantity = ''
+          this.itemPrice = ''
+        })
     },
     verify () {
       this.$alert('提交成功', '订单确认', {
@@ -133,13 +133,13 @@ export default {
         callback: action => {
         }
       })
-        this.tableData = null
-        this.wholePrice = 0
-        this.$axios.get('/wholesale/init?staffId=' + this.$store.state.staff_id + '&repositoryId=1').then(response => {
-          this.$store.commit('saveStaff_init_order_id',response.data.ordersId)
-        })
+      this.tableData = null
+      this.wholePrice = 0
+      this.$axios.get('/wholesale/init?staffId=' + this.$store.state.staff_id + '&repositoryId=1').then(response => {
+        this.$store.commit('saveStaff_init_order_id', response.data.ordersId)
+      })
     },
-    //审核订单
+    // 审核订单
     save () {
       this.$alert('保存成功', '订单确认', {
         confirmButtonText: '确认',
@@ -147,9 +147,9 @@ export default {
         }
       })
     },
-    //收款
+    // 收款
     check () {
-      this.$axios.post('/wholesale/pay' ,{ Orders : this.Orders }).then(
+      this.$axios.post('/wholesale/pay', { Orders: this.Orders }).then(
         this.$alert('收款成功', '收款确认', {
           confirmButtonText: '确认',
           callback: action => {
@@ -159,8 +159,9 @@ export default {
         this.wholePrice = 0
 
       )
-      this.$axios.post('/wholesale/init' , {staffId : this.$store.state.staff_id, repositoryId : null, customerId : null }).then(response => {
-        this.$store.commit('saveStaff_init_order_id',response.data.ordersId)
+      // eslint-disable-next-line standard/object-curly-even-spacing
+      this.$axios.post('/wholesale/init', {staffId: this.$store.state.staff_id, repositoryId: null, customerId: null }).then(response => {
+        this.$store.commit('saveStaff_init_order_id', response.data.ordersId)
       })
     }
   }

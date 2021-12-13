@@ -38,13 +38,13 @@
       <el-main>
         <el-row :gutter="20">
           <el-col :span="4">
-            <el-input v-model="productName" placeholder="商品名称"></el-input>
+            <el-input v-model="productName" placeholder="商品名称" type="text" maxlength="128"></el-input>
           </el-col>
           <el-col :span="3">
-            <el-input v-model="productCost" placeholder="成本价"></el-input>
+            <el-input v-model="productCost" placeholder="成本价" type="text" oninput="this.value = this.value.replace(/[^0-9]/g, '');"></el-input>
           </el-col>
           <el-col :span="3">
-            <el-input v-model="retailPrice" placeholder="零售价"></el-input>
+            <el-input v-model="retailPrice" placeholder="零售价" type="text" oninput="this.value = this.value.replace(/[^0-9]/g, '');"></el-input>
           </el-col>
           <el-col :span="2">
             <el-button @click = "addItem">添加</el-button>
@@ -67,7 +67,7 @@
           </el-table-column>
         </el-table>
         <el-dialog title="商品编辑" :visible.sync="modifyVisible" width="25%">
-          <el-input v-model="updatePrice" placeholder="零售价" style="width: 70%"></el-input>
+          <el-input v-model="updatePrice" placeholder="零售价" style="width: 70%" type="number"></el-input>
           <span slot="footer">
             <el-button @click="modifyVisible = false">取消</el-button>
             <el-button @click="examine">保存</el-button>
@@ -82,13 +82,6 @@
 export default {
   name: 'ProductList',
   data () {
-    const product = {
-      index: '1',
-      productId: '123456',
-      productName: '鼠标',
-      productCost: '3.00',
-      retailPrice: '10.00'
-    }
     return {
       pageName: '商品清单',
       bossName: this.$store.state.staff_name,
@@ -96,64 +89,61 @@ export default {
       productName: '',
       retailPrice: '',
       productList: [],
-     // productList: Array(20).fill(product),
-      //productList: this.product,
+      // productList: Array(20).fill(product),
+      // productList: this.product,
       modifyVisible: false,
       updatePrice: ''
     }
   },
-  mounted: function() {
-    this.$axios.get("/product/all").then(Response=> {
+  mounted: function () {
+    this.$axios.get('/product/all').then(Response => {
       this.productList = Response.data
     })
   },
   methods: {
-    //添加商品
-    addItem(){
-      this.$axios.post('/product/add',{productName:this.productName,productCost: this.productCost,productRetailPrice:this.retailPrice})
-      .then(Response=>{
-        if( Response.data.code === 200)
-        {
-          this.$axios.get("/product/all").then(Response=> {
-            this.productList = Response.data
-          })
-        }
-        this.productName=''
-        this.productCost=''
-        this.retailPrice=''
-      })
+    // 添加商品
+    addItem () {
+      this.$axios.post('/product/add', {productName: this.productName, productCost: this.productCost, productRetailPrice: this.retailPrice})
+        .then(Response => {
+          if (Response.data.code === 200) {
+            this.$axios.get('/product/all').then(Response => {
+              this.productList = Response.data
+            })
+          }
+          this.productName = ''
+          this.productCost = ''
+          this.retailPrice = ''
+        })
     },
-    //删除商品
+    // 删除商品
     deleteProduct () {
-      this.$axios.get("/product/delete?productId=" + this.$store.state.product_id).then(Response=> {
-        if(Response.data.code === 200)
-        {
+      this.$axios.get('/product/delete?productId=' + this.$store.state.product_id).then(Response => {
+        if (Response.data.code === 200) {
           this.$message({
             message: '商品删除成功',
             type: 'success'
           },
-            this.$axios.get("/product/all").then(Response=> {
-              this.productList = Response.data
-            })
+          this.$axios.get('/product/all').then(Response => {
+            this.productList = Response.data
+          })
           )
         }
       })
     },
-    //更改零售价
+    // 更改零售价
     examine () {
-      this.$axios.post('/product/update',{productId: this.$store.state.product_id, productRetailPrice: this.updatePrice}).then(Response=>{
-        if( Response.data.code === 200)
-        {
-          this.$axios.get("/product/all").then(Response=> {
+      this.$axios.post('/product/update', {productId: this.$store.state.product_id, productRetailPrice: this.updatePrice}).then(Response => {
+        if (Response.data.code === 200) {
+          this.$axios.get('/product/all').then(Response => {
             this.productList = Response.data
           })
         }
-        this.updatePrice=''
+        this.updatePrice = ''
       })
       this.modifyVisible = false
     },
-    handle (row, column, cell, event) {
-      this.$store.commit('saveProduct_id',row['productId'])
+    handle (row) {
+      this.$store.commit('saveProduct_id', row['productId'])
     }
   }
 }
